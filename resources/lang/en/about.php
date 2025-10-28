@@ -1,0 +1,47 @@
+<?php
+return [
+    'who_we_are' => 'Who we are?',
+    'about_us' => 'About Us – Ameer Luxury Rent a Car',
+    'about_us_description' => 'Welcome to Ameer Luxury Rent a Car – Your Premier Travel Partner in the UAE!
+    Founded in 2023, Ameer Luxury Rent a Car has quickly established itself as a trusted name in the world of premium transportation. Based in the heart of the UAE, we specialize in luxury car rentals and thrilling Desert Safari experiences, offering our clients unforgettable journeys marked by comfort, style, and adventure.',
+    'who_we_are' => 'Who We Are',
+    'who_we_are_description' => 'At Ameer Luxury, we believe that every journey should be more than just a commute—it should be a statement. Whether youre a tourist looking to explore Dubai in style or a local in need of a reliable, high-end ride, we provide an impressive fleet of luxury vehicles to suit every need and occasion.',
+    'our_services' => 'Our Services',
+    'luxury_car_rental' => '🚗 Luxury Car Rentals',
+    'luxury_car_rental_description' => 'Experience the thrill of driving the worlds top car brands. Our fleet includes a range of sedans, SUVs, sports cars, and exotic models—all meticulously maintained and ready to deliver the ultimate driving experience. Available for daily, weekly, and monthly rentals.',
+    'desert_safari' => '🏜️ Desert Safari Adventures',
+    'desert_safari_description' => 'Looking for a taste of adventure? Join us for a guided Desert Safari tour through the golden dunes of the UAE. Our packages include dune bashing, camel rides, BBQ dinners, traditional performances, and more. Perfect for tourists, groups, and special occasions.',
+    'why_chose_us' => 'Why Choose Us?',
+    'why_1' => '✅ Premium Vehicle Selection',
+    'why_2' => '✅ Competitive Pricing',
+    'why_3' => '✅ Flexible Booking & Delivery ',
+    'why_4' => '✅ Professional Chauffeur Services',
+    'why_5' => '✅ Authentic Desert Safari Packages',
+    'why_6' => '✅ Exceptional Customer Support',
+    'our_mission' => 'Our Mission',
+    'mission_description' => 'To redefine luxury and adventure by delivering top-tier car rental and tour services that exceed expectations, ensuring every customer drives away with satisfaction and unforgettable memories.',
+    'get_in_touch' => 'Get in Touch',
+    'get_in_touch_description' => 'Have a question or need assistance? Our team is here to help. Contact us today for any inquiries or to book a rental or tour.Whether youre here for business, leisure, or exploration—Ameer Luxury Rent a Car is here to elevate your experience.
+Contact us today to book your luxury ride or reserve your spot on our next Desert Safari adventure!',
+
+
+    'where_from_we_start' => 'From where we start?',
+    'here_our_journy' => 'Heres Our Journey',
+    'company_found' => 'COMPANY FOUNDED',
+    'company_found_description' => 'Phantom Rent Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.',
+    'found_date' => 'Date: January 1, 2011',
+    'expension_to_international_market' => 'EXPANSION TO INTERNATIONAL MARKETS',
+    'expension_to_international_market_description' => 'Opened branches in Abu Dhabi, Dubai, expanding our services across the UAE.',
+    'expension_date' => 'Date: January 1, 2020',
+    'customer_reached' => 'REACHED 40,000 CUSTOMERS',
+    'customer_reached_description' => 'Celebrated a milestone of serving 40,000 satisfied customers with our luxury car rental services.',
+    'customer_reached_date' => 'Date: June 1, 2024',
+    'industry_recognition' => 'INDUSTRY RECOGNITION',
+    'industry_recognition_description' => 'Received the "Best Luxury Car Rental Company in UAE" award at the Middle East Business Awards.',
+    'industry_recognition_date' => 'Date: November 1, 2023',
+    'our_story' => 'OUR STORY',
+    'happy_customer' => 'HAPPY CUSTOMER',
+    'total_car_count' => 'Total car count',
+    'total_km_mil' => 'Total KM/MIL',
+    'call_center_solution' => 'Call Center Solutions'
+];
