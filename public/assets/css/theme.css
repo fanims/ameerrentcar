@@ -3328,8 +3328,8 @@ input[type="checkbox"] {
 }
 
 .header .header-wrapper {
-    padding: 20 0 0;
     min-height: 70px;
+    padding: 20px 0 0;
     position: relative;
     background: var(--theme-dark-color);
 }
