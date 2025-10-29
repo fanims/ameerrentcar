@@ -19,12 +19,12 @@
                                     <!-- navigation menu -->
                                     <a href="#" class="menu-toggle-close btn"><i class="fa fa-times"></i></a>
                                     <ul class="nav sf-menu">
-                                        <li class="active"><a href="{{ route('home') }}">{{ __('navigation.home') }}</a></li>
-                                        <li><a href="{{ route('vahicles') }}">{{ __('navigation.vehicles') }}</a></li>
-                                        <li><a href="{{ route('about-us') }}">{{ __('navigation.about-us') }}</a></li>
-                                        <li><a href="{{ route('faq') }}">{{ __('navigation.faq') }}</a></li>
-                                        <li><a href="{{ route('contact-us') }}">{{ __('navigation.contact-us') }}</a></li>
-                                        <li><a href="{{ route('privacy-policy') }}">{{ __('navigation.privacy-policy') }}</a></li>
+                                        <li class="{{ request()->routeIs('home') ? 'active' : '' }}"><a href="{{ route('home') }}">{{ __('navigation.home') }}</a></li>
+                                        <li class="{{ request()->routeIs('vahicles') || request()->routeIs('vehicle') || request()->routeIs('search') || request()->routeIs('car.search') ? 'active' : '' }}"><a href="{{ route('vahicles') }}">{{ __('navigation.vehicles') }}</a></li>
+                                        <li class="{{ request()->routeIs('about-us') ? 'active' : '' }}"><a href="{{ route('about-us') }}">{{ __('navigation.about-us') }}</a></li>
+                                        <li class="{{ request()->routeIs('faq') ? 'active' : '' }}"><a href="{{ route('faq') }}">{{ __('navigation.faq') }}</a></li>
+                                        <li class="{{ request()->routeIs('contact-us') ? 'active' : '' }}"><a href="{{ route('contact-us') }}">{{ __('navigation.contact-us') }}</a></li>
+                                        <li class="{{ request()->routeIs('privacy-policy') ? 'active' : '' }}"><a href="{{ route('privacy-policy') }}">{{ __('navigation.privacy-policy') }}</a></li>
                                     </ul>
                                 </div>
                             </div>

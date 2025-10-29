@@ -171,27 +171,28 @@ Ameer RAC | Vehicle
                                   }}</a>
                           </div>
                       </div>
-                  </div>
-              </div>
-              <!-- Economic Cars -->
-              <div class="tab-pane fade" id="tab-3">
-                  <div class="row g-4">
-                      @foreach($cars as $key => $car)
-                      @if($car->car_type == 'New' && $key < 9) <div class="col-md-4 col-lg-3 dark">
+                      
+                      <!-- Economic Cars -->
+                      <div class="tab-pane fade" id="tab-3">
+                          <div class="row g-4">
+                              @foreach($cars as $key => $car)
+                              @if($car->car_type == 'New' && $key < 9) <div class="col-md-4 col-lg-3 dark">
       
-                          @component('components.car',[
-                          'car' => $car
-                          ])
-                          @endcomponent
-                  </div>
-                  @endif
-                  @endforeach
+                                  @component('components.car',[
+                                  'car' => $car
+                                  ])
+                                  @endcomponent
+                          </div>
+                          @endif
+                          @endforeach
       
-                  <!-- View All Button -->
-                  <div class="col-12 rc-view-all-btn">
-                      <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
-                          __('home.view_all')
-                          }}</a>
+                          <!-- View All Button -->
+                          <div class="col-12 rc-view-all-btn">
+                              <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
+                                  __('home.view_all')
+                                  }}</a>
+                          </div>
+                      </div>
                   </div>
               </div>
           </div>
