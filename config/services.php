@@ -61,8 +61,16 @@ return [
     ],
 
     'tabby' => [
-        'secret_key' => env('TABBY_SECRET_KEY'),
-        'public_key' => env('TABBY_PUBLIC_KEY'),
+        'secret_key' => env('TABBY_SECRET_KEY', ''),
+        'public_key' => env('TABBY_PUBLIC_KEY', ''),
+        'merchant_code' => env('TABBY_MERCHANT_CODE', '459000001725'),
+        'test_mode' => env('TABBY_TEST_MODE', true),
+        'currency' => env('TABBY_CURRENCY', 'AED'),
+        'sandbox_url' => env('TABBY_SANDBOX_URL', 'https://api.tabby.ai/api/v2/checkout'),
+        'production_url' => env('TABBY_PRODUCTION_URL', 'https://api.tabby.ai/api/v2/checkout'),
+        'test_email' => env('TABBY_TEST_EMAIL', 'otp.success@tabby.ai'),
+        'default_email' => env('TABBY_DEFAULT_EMAIL', 'customer@example.com'),
+        'default_image_url' => env('TABBY_DEFAULT_IMAGE_URL', 'https://example.com/car.jpg'),
     ],
 
 

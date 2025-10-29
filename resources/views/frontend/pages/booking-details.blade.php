@@ -316,10 +316,24 @@
         <input type="radio" id="paymentCod" name="payment_method" value="cod" class="custom-control-input">
         <label class="custom-control-label" for="paymentCod">Cash on Delivery</label>
       </div>
-      {{-- <div class="custom-control custom-radio custom-control-inline">
+      <div class="custom-control custom-radio custom-control-inline">
         <input type="radio" id="paymentTabby" name="payment_method" value="tabby" class="custom-control-input">
         <label class="custom-control-label" for="paymentTabby">Tabby</label>
-      </div> --}}
+      </div>
+    </div>
+
+    <!-- Tabby Test Payment Button (shown only when Tabby is selected and in test mode) -->
+    <div id="tabbyTestButton" class="form-section" style="display: none; background-color: #fff3cd; border-color: #ffc107;">
+      <h5 style="color: #856404;">🧪 Tabby Test Mode</h5>
+      <p style="color: #856404; font-size: 0.9rem; margin-bottom: 15px;">
+        Since Tabby credentials are not yet configured, you can test the payment flow with this button.
+      </p>
+      <a href="{{ route('tabby.payment.simulate') }}" class="btn btn-warning" style="width: 100%;">
+        Simulate Successful Tabby Payment
+      </a>
+      <small style="color: #856404; display: block; margin-top: 10px;">
+        This will create a test order with payment status "paid" without going through the actual Tabby payment gateway.
+      </small>
     </div>
 
     <div class="payment-section">
@@ -449,6 +463,7 @@
     const paymentCod = document.getElementById('paymentCod');
     const paymentTabby = document.getElementById('paymentTabby');
     const paymentSection = document.querySelector('.payment-section');
+    const tabbyTestButton = document.getElementById('tabbyTestButton');
 
     function togglePaymentSection() {
       if (paymentOnline.checked || paymentTabby.checked) {
@@ -456,11 +471,20 @@
       } else {
         paymentSection.style.display = 'none';
       }
+
+      // Show/hide Tabby test button
+      if (paymentTabby && paymentTabby.checked) {
+        tabbyTestButton.style.display = 'block';
+      } else {
+        tabbyTestButton.style.display = 'none';
+      }
     }
 
     paymentOnline.addEventListener('change', togglePaymentSection);
     paymentCod.addEventListener('change', togglePaymentSection);
-    paymentTabby.addEventListener('change', togglePaymentSection);
+    if (paymentTabby) {
+      paymentTabby.addEventListener('change', togglePaymentSection);
+    }
 
     togglePaymentSection(); // Run on load
   });

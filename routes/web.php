@@ -94,6 +94,14 @@ Route::controller(OrderController::class)->group(function () {
     Route::get('/ziina/payment/failure',  'paymentFailure')->name('payment.failure');
 });
 
+// Tabby Payment Routes
+Route::controller(App\Http\Controllers\TabbyPaymentController::class)->group(function () {
+    Route::get('/tabby/payment/success',  'success')->name('tabby.payment.success');
+    Route::get('/tabby/payment/cancel',  'cancel')->name('tabby.payment.cancel');
+    Route::get('/tabby/payment/failure',  'failure')->name('tabby.payment.failure');
+    Route::get('/tabby/payment/simulate',  'simulateSuccess')->name('tabby.payment.simulate');
+});
+
 Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');
 
 Route::middleware(['auth'])->group(function () {
