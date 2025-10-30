@@ -241,7 +241,7 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
                         </div>
             
                         <!-- Popular Cars (default active) -->
-                        <div class="tab-pane fade active in" id="tab-2">
+                        <div class="tab-pane fade show active in" id="tab-2">
                             <div class="row g-4">
                                 @foreach($cars as $key => $car)
                                 @if($car->car_type == 'Best Offer' && $key < 9) <div class="col-md-4 col-lg-3 dark">
@@ -259,27 +259,28 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
                                     }}</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Economic Cars -->
-                <div class="tab-pane fade" id="tab-3">
-                    <div class="row g-4">
-                        @foreach($cars as $key => $car)
-                        @if($car->car_type == 'New' && $key < 9) <div class="col-md-4 col-lg-3 dark">
+                        
+                        <!-- Economic Cars -->
+                        <div class="tab-pane fade" id="tab-3">
+                            <div class="row g-4">
+                                @foreach($cars as $key => $car)
+                                @if($car->car_type == 'New' && $key < 9) <div class="col-md-4 col-lg-3 dark">
         
-                            @component('components.car',[
-                            'car' => $car
-                            ])
-                            @endcomponent
-                    </div>
-                    @endif
-                    @endforeach
+                                    @component('components.car',[
+                                    'car' => $car
+                                    ])
+                                    @endcomponent
+                            </div>
+                            @endif
+                            @endforeach
         
-                    <!-- View All Button -->
-                    <div class="col-12 rc-view-all-btn">
-                        <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
-                            __('home.view_all')
-                            }}</a>
+                            <!-- View All Button -->
+                            <div class="col-12 rc-view-all-btn">
+                                <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
+                                    __('home.view_all')
+                                    }}</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

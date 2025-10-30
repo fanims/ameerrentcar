@@ -153,7 +153,7 @@ Ameer RAC | Vehicle
                       </div>
           
                       <!-- Popular Cars (default active) -->
-                      <div class="tab-pane fade active in" id="tab-2">
+                      <div class="tab-pane fade show active in" id="tab-2">
                           <div class="row g-4">
                               @foreach($cars as $key => $car)
                               @if($car->car_type == 'Best Offer' && $key < 9) <div class="col-md-4 col-lg-3 dark">
