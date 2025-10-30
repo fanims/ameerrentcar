@@ -2660,6 +2660,7 @@ input[type="checkbox"] {
 
 .rc-add-to-cart {
     padding: 50px 0;
+    min-height: 100vh;
     background: rgba(0, 0, 0, 1);
 }
 
@@ -2773,8 +2774,25 @@ input[type="checkbox"] {
     color: var(--text-color);
 }
 
-.rc-add-to-cart-cars-details .rc-btn-theme {
+.rc-add-to-cart-cars-price {
     margin-left: auto;
+}
+
+.rc-add-to-cart-cars-price span {
+    display: block;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0 0 22px;
+    text-align: right;
+    color: var(--text-color);
+}
+
+.rc-add-to-cart-cars-details .rc-btn-theme {
+    color: var(--text-dark-color) !important;
+}
+
+.rc-add-to-cart-cars-details .rc-btn-theme:hover {
+    color: var(--theme-color) !important;
 }
 
 .rc-add-to-cart-order-summary {

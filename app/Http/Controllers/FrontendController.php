@@ -241,7 +241,20 @@ class FrontendController extends Controller
     public function addToCart($id)
     {
         $car = Car::with(['images', 'category'])->find($id);
-        return view('frontend.pages.add-to-cart', compact('car'));
+
+        // Maintain a simple session cart of car ids
+        $cart = session()->get('cart', []);
+        $cart[$id] = true; // use associative keys to avoid duplicates
+        session()->put('cart', $cart);
+
+        // Load all cars currently in the cart for rendering the page
+        $cartCarIds = array_keys($cart);
+        $cartCars = Car::with(['images', 'category'])->whereIn('id', $cartCarIds)->get();
+
+        return view('frontend.pages.add-to-cart', [
+            'car' => $car,        // keep for back button to last added car
+            'cartCars' => $cartCars,
+        ]);
     }
 
     public function bookingDetails($id)

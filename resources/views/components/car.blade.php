@@ -41,37 +41,37 @@
 
         <!-- Price Section -->
         <div class="item-prices">
-            @if ($car->base_price_per_month != $car->current_price_per_month)
+            <!-- @if ($car->base_price_per_month != $car->current_price_per_month)
                 <div class="item-price">
                     <div class="text-muted text-decoration-line-through small">
                         {{ getCurrencySymbol() }} {{ $car->base_price_per_month }}
                     </div>
                 </div>
-            @endif
+            @endif -->
             <div class="item-price">
                 <span class="duration">{{ __('home.monthly') }}</span>
                 <span class="currency">{{ getCurrencySymbol() }}</span>
                 <span class="price">{{ $car->current_price_per_month }}</span>
             </div>
-            @if ($car->base_price_per_week != $car->current_price_per_week)
+            <!-- @if ($car->base_price_per_week != $car->current_price_per_week)
                 <div class="item-price">
                     <div class="text-muted text-decoration-line-through small">
                         {{ getCurrencySymbol() }} {{ $car->base_price_per_week }}
                     </div>
                 </div>
-            @endif
+            @endif -->
             <div class="item-price">
                 <span class="duration">{{ __('home.weekly') }}</span>
                 <span class="currency">{{ getCurrencySymbol() }}</span>
                 <span class="price">{{ $car->current_price_per_week }}</span>
             </div>
-            @if ($car->base_price_per_day != $car->current_price_per_day)
+            <!-- @if ($car->base_price_per_day != $car->current_price_per_day)
                 <div class="item-price">
                     <div class="text-muted text-decoration-line-through small">
                         {{ getCurrencySymbol() }} {{ $car->base_price_per_day }}
                     </div>
                 </div>
-            @endif
+            @endif -->
             <div class="item-price">
                 <span class="duration">{{ __('home.daily') }}</span>
                 <span class="currency">{{ getCurrencySymbol() }}</span>
