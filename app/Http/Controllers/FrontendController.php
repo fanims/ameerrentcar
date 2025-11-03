@@ -269,6 +269,11 @@ class FrontendController extends Controller
         return view('frontend.pages.payment', compact('car'));
     }
 
+    public function addPayment()
+    {
+        return view('frontend.pages.add-payment');
+    }
+
     public function privacyPolicy()
     {
         return view('frontend.pages.policy');

@@ -12,7 +12,7 @@
 </head>
 <body>
 <!-- CONTENT AREA -->
-<section class="rc-add-to-cart rc-bg-shape">
+<section class="rc-add-to-cart rc-bg-shape-wrap">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -83,7 +83,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <button class="rc-btn-theme" id="checkoutBtn" onclick="window.location.href='{{ route('checkout', ($car->slug ?? '') ) }}'">Checkout</button>
+                        <button class="rc-btn-theme" id="checkoutBtn" onclick="window.location.href='{{ route('add-payment') }}'">Checkout</button>
                     </div>
                 </div>
             </div>

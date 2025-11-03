@@ -2211,7 +2211,6 @@ input[type="checkbox"] {
 .form-horizontal .form-group label {
     font-size: 12px;
     font-weight: 500;
-    line-height: 10px;
     color: rgba(141, 141, 141, 1);
 }
 .form-horizontal .form-control {
@@ -2646,12 +2645,12 @@ input[type="checkbox"] {
 
 /* Add to Cart */
 
-.rc-bg-shape {
+.rc-bg-shape-wrap {
     z-index: 999;
     position: relative;
 }
 
-.rc-bg-shape .rc-bg-shape {
+.rc-bg-shape-wrap .rc-bg-shape {
     top: 0;
     right: 0;
     z-index: -1;

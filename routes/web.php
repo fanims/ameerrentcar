@@ -74,6 +74,7 @@ Route::controller(App\Http\Controllers\FrontendController::class)->group(functio
     Route::get('/add-to-cart/{id}', 'addToCart')->name('add-to-cart');
     Route::get('/booking-details/{id}', 'bookingDetails')->name('booking-details');
     Route::get('/payment/{id}', 'payment')->name('payment');
+    Route::get('/add-payment', 'addPayment')->name('add-payment');
     Route::get('/privacy-policy', 'privacyPolicy')->name('privacy-policy');
     Route::get('/terms-and-conditions', 'termsConditions')->name('terms-and-conditions');
     Route::get('/search', 'vehicles')->name('search');
@@ -88,6 +89,7 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('/booking-details/{car}',  'storeBooking')->name('booking.store');
     Route::post('/order',  'store')->name('order.store');
     Route::post('/apply-coupon',  'applyCoupon')->name('apply.coupon');
+    Route::post('/payment-method/store',  'storePaymentMethod')->name('payment.method.store');
 
     Route::get('/ziina/payment/success',  'paymentSuccess')->name('payment.success');
     Route::get('/ziina/payment/cancel',  'paymentCancel')->name('payment.cancel');

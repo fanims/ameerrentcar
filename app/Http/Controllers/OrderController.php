@@ -8,6 +8,7 @@ use App\Models\Car;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use App\Services\ZiinaService;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Coupon;
@@ -346,5 +347,97 @@ class OrderController extends Controller
             'message' => "Coupon applied! New total: {$grand_total} AED",
             'new_total' => $grand_total,
         ]);
+    }
+
+    /**
+     * Store payment method information
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function storePaymentMethod(Request $request)
+    {
+        $validated = $request->validate([
+            'card_number' => 'required|string|regex:/^[\d\s]{13,19}$/',
+            'cardholder_name' => 'required|string|max:50|regex:/^[A-Za-z\s]+$/',
+            'expiry_date' => 'required|string|regex:/^(0[1-9]|1[0-2])\/\d{2}$/',
+            'cvv' => 'required|string|regex:/^\d{3,4}$/',
+            'license' => 'required|in:yes,no',
+            'license_files' => 'required_if:license,yes|array',
+            'license_files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'terms' => 'required|accepted',
+            'save_card' => 'nullable|boolean',
+        ]);
+
+        try {
+            // Clean card number (remove spaces)
+            $cardNumber = preg_replace('/\s+/', '', $validated['card_number']);
+            
+            // Store payment method in session (in production, use a payment gateway API)
+            $paymentMethod = [
+                'card_last_four' => substr($cardNumber, -4),
+                'cardholder_name' => $validated['cardholder_name'],
+                'expiry_date' => $validated['expiry_date'],
+                'card_type' => $this->detectCardType($cardNumber),
+                'save_card' => $request->has('save_card') && $request->save_card == '1',
+            ];
+
+            // Handle license files if "Yes" is selected
+            $licenseFiles = [];
+            if ($validated['license'] === 'yes' && $request->hasFile('license_files')) {
+                foreach ($request->file('license_files') as $file) {
+                    $path = $file->store('licenses', 'public');
+                    $licenseFiles[] = $path;
+                }
+            }
+
+            // Store in session (in production, encrypt and store securely in database)
+            session()->put('payment_method', array_merge($paymentMethod, [
+                'license' => $validated['license'],
+                'license_files' => $licenseFiles,
+            ]));
+
+            // If user wants to save card and is authenticated, store in database
+            if (auth()->check() && $paymentMethod['save_card']) {
+                // TODO: Implement payment method storage in database
+                // You would create a PaymentMethod model and store encrypted card data
+            }
+
+            return redirect()->back()->with('success', 'Payment method added successfully!');
+            
+        } catch (\Exception $e) {
+            Log::error('Payment Method Store Error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Failed to add payment method. Please try again.');
+        }
+    }
+
+    /**
+     * Detect card type from card number
+     * 
+     * @param string $cardNumber
+     * @return string
+     */
+    private function detectCardType(string $cardNumber): string
+    {
+        $firstDigit = substr($cardNumber, 0, 1);
+        $firstTwoDigits = substr($cardNumber, 0, 2);
+        
+        if ($firstDigit === '4') {
+            return 'visa';
+        } elseif ($firstDigit === '5') {
+            return 'mastercard';
+        } elseif ($firstTwoDigits === '34' || $firstTwoDigits === '37') {
+            return 'amex';
+        } elseif ($firstDigit === '6') {
+            return 'discover';
+        }
+        
+        return 'unknown';
     }
 }
