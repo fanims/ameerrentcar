@@ -64,13 +64,17 @@ return [
         'secret_key' => env('TABBY_SECRET_KEY', ''),
         'public_key' => env('TABBY_PUBLIC_KEY', ''),
         'merchant_code' => env('TABBY_MERCHANT_CODE', '459000001725'),
-        'test_mode' => env('TABBY_TEST_MODE', true),
+        'test_mode' => env('TABBY_TEST_MODE', env('TABBY_ENV') === 'test'),
+        'env' => env('TABBY_ENV', 'test'), // 'test' or 'live'
         'currency' => env('TABBY_CURRENCY', 'AED'),
-        'sandbox_url' => env('TABBY_SANDBOX_URL', 'https://api.tabby.ai/api/v2/checkout'),
+        'sandbox_url' => env('TABBY_SANDBOX_URL', 'https://api.tabby.dev/api/v2/checkout'),
         'production_url' => env('TABBY_PRODUCTION_URL', 'https://api.tabby.ai/api/v2/checkout'),
+        'sandbox_base_url' => env('TABBY_SANDBOX_BASE_URL', 'https://api.tabby.dev/api/v2'),
+        'production_base_url' => env('TABBY_PRODUCTION_BASE_URL', 'https://api.tabby.ai/api/v2'),
         'test_email' => env('TABBY_TEST_EMAIL', 'otp.success@tabby.ai'),
         'default_email' => env('TABBY_DEFAULT_EMAIL', 'customer@example.com'),
         'default_image_url' => env('TABBY_DEFAULT_IMAGE_URL', 'https://example.com/car.jpg'),
+        'verify_payments' => env('TABBY_VERIFY_PAYMENTS', true),
     ],
 
 

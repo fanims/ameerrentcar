@@ -102,6 +102,15 @@ Route::controller(App\Http\Controllers\TabbyPaymentController::class)->group(fun
     Route::get('/tabby/payment/cancel',  'cancel')->name('tabby.payment.cancel');
     Route::get('/tabby/payment/failure',  'failure')->name('tabby.payment.failure');
     Route::get('/tabby/payment/simulate',  'simulateSuccess')->name('tabby.payment.simulate');
+    
+    // Webhook endpoint (POST only - Tabby sends webhooks via POST)
+    Route::post('/tabby/webhook',  'webhook')
+        ->name('tabby.webhook')
+        ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+    
+    // Handle GET requests to webhook URL (for testing/debugging)
+    Route::get('/tabby/webhook',  'webhookGet')
+        ->name('tabby.webhook.get');
 });
 
 Route::post('/subscribe', [SubscriptionController::class, 'subscribe'])->name('subscribe');

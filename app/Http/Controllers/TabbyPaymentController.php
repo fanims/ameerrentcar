@@ -194,6 +194,104 @@ class TabbyPaymentController extends Controller
     }
 
     /**
+     * Handle GET requests to webhook endpoint (for testing/debugging)
+     * Returns a helpful message since webhooks only accept POST
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function webhookGet(Request $request)
+    {
+        return response()->json([
+            'message' => 'Tabby webhook endpoint only accepts POST requests',
+            'webhook_url' => route('tabby.webhook'),
+            'method' => 'POST',
+            'note' => 'This endpoint is designed to receive webhook notifications from Tabby. Use POST method to send webhook data.'
+        ], 405);
+    }
+
+    /**
+     * Handle Tabby webhook notifications
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function webhook(Request $request)
+    {
+        try {
+            // Get signature from header (Tabby sends it in X-Tabby-Signature header)
+            $signature = $request->header('X-Tabby-Signature') 
+                ?? $request->header('X-Signature')
+                ?? $request->input('signature');
+
+            $payload = $request->all();
+
+            // Verify webhook signature
+            if (!$this->tabbyService->verifyWebhookSignature($payload, $signature)) {
+                Log::warning('Tabby Webhook: Invalid signature', [
+                    'payload' => $payload
+                ]);
+                return response()->json(['error' => 'Invalid signature'], 401);
+            }
+
+            $paymentId = $payload['id'] ?? $payload['payment_id'] ?? null;
+            $status = $payload['status'] ?? null;
+            $orderReferenceId = $payload['order']['reference_id'] ?? null;
+
+            if (!$paymentId || !$status) {
+                Log::warning('Tabby Webhook: Missing payment ID or status', ['payload' => $payload]);
+                return response()->json(['error' => 'Invalid payload'], 400);
+            }
+
+            Log::info('Tabby Webhook Received', [
+                'payment_id' => $paymentId,
+                'status' => $status,
+                'order_reference' => $orderReferenceId
+            ]);
+
+            // Find order by reference_id
+            if ($orderReferenceId) {
+                $order = Order::where('order_id', $orderReferenceId)->first();
+
+                if ($order) {
+                    // Update order status based on webhook status
+                    $paymentStatusMap = [
+                        'authorized' => 'paid',
+                        'captured' => 'paid',
+                        'rejected' => 'failed',
+                        'cancelled' => 'cancelled',
+                        'expired' => 'cancelled',
+                    ];
+
+                    $newStatus = $paymentStatusMap[$status] ?? $order->payment_status;
+                    $order->update(['payment_status' => $newStatus]);
+
+                    Log::info('Tabby Webhook: Order updated', [
+                        'order_id' => $order->order_id,
+                        'old_status' => $order->getOriginal('payment_status'),
+                        'new_status' => $newStatus,
+                        'webhook_status' => $status
+                    ]);
+                } else {
+                    Log::warning('Tabby Webhook: Order not found', [
+                        'order_reference' => $orderReferenceId
+                    ]);
+                }
+            }
+
+            return response()->json(['success' => true], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Tabby Webhook Handler Error', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+                'payload' => $request->all()
+            ]);
+            return response()->json(['error' => 'Internal server error'], 500);
+        }
+    }
+
+    /**
      * Simulate successful Tabby transaction (for testing without credentials)
      * 
      * @param Request $request

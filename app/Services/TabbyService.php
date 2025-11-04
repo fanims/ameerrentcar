@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Log;
 class TabbyService
 {
     protected $apiKey;
-    protected $apiUrl;
+    protected $checkoutUrl;
+    protected $baseUrl;
     protected $merchantCode;
     protected $isTestMode;
 
@@ -19,9 +20,14 @@ class TabbyService
         $this->isTestMode = config('services.tabby.test_mode', true);
         
         // Use sandbox URL for testing, production URL when credentials are available
-        $this->apiUrl = $this->isTestMode 
-            ? config('services.tabby.sandbox_url', 'https://api.tabby.ai/api/v2/checkout')
+        $this->checkoutUrl = $this->isTestMode 
+            ? config('services.tabby.sandbox_url', 'https://api.tabby.dev/api/v2/checkout')
             : config('services.tabby.production_url', 'https://api.tabby.ai/api/v2/checkout');
+        
+        // Base URL for payments API (different from checkout endpoint)
+        $this->baseUrl = $this->isTestMode
+            ? config('services.tabby.sandbox_base_url', 'https://api.tabby.dev/api/v2')
+            : config('services.tabby.production_base_url', 'https://api.tabby.ai/api/v2');
     }
 
     // public function createCheckout(array $finalData)
@@ -148,7 +154,7 @@ class TabbyService
 
         try {
             Log::info('Tabby API Request', [
-                'url' => $this->apiUrl,
+                'url' => $this->checkoutUrl,
                 'merchant_code' => $this->merchantCode,
                 'is_test_mode' => $this->isTestMode
             ]);
@@ -157,7 +163,7 @@ class TabbyService
                 'Authorization' => 'Bearer ' . trim($this->apiKey),
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json'
-            ])->post($this->apiUrl, $body);
+            ])->post($this->checkoutUrl, $body);
 
             $result = $response->json();
 
@@ -273,16 +279,8 @@ class TabbyService
                     "is_address_verified" => true
                 ],
             ],
-            "customer" => [
-                "phone" => $phone,
-                "email" => $email,
-                "name" => $name,
-                "dob" => $dob
-            ],
-            "phone" => $phone,
             "lang" => app()->getLocale(),
             "merchant_code" => $this->merchantCode,
-            'is_test' => $this->isTestMode,
             "merchant_urls" => [
                 "success" => route('tabby.payment.success'),
                 "cancel" => route('tabby.payment.cancel'),
@@ -348,7 +346,7 @@ class TabbyService
     }
 
     /**
-     * Verify payment webhook signature (for future use)
+     * Verify payment webhook signature using HMAC-SHA256
      * 
      * @param array $payload
      * @param string $signature
@@ -356,13 +354,35 @@ class TabbyService
      */
     public function verifyWebhookSignature(array $payload, string $signature): bool
     {
-        // Implementation for webhook signature verification
-        // This will be used when Tabby sends payment status updates
-        return true; // Placeholder
+        if (empty($signature) || empty($this->apiKey)) {
+            Log::warning('Tabby Webhook: Missing signature or API key');
+            return false;
+        }
+
+        // Tabby typically sends signature in header, but check payload too
+        $payloadToSign = $payload;
+        unset($payloadToSign['signature']);
+
+        // Create expected signature using HMAC-SHA256
+        $payloadString = json_encode($payloadToSign, JSON_UNESCAPED_SLASHES);
+        $expectedSignature = hash_hmac('sha256', $payloadString, $this->apiKey);
+
+        // Compare signatures (timing-safe comparison)
+        $isValid = hash_equals($expectedSignature, $signature);
+
+        if (!$isValid) {
+            Log::warning('Tabby Webhook: Invalid signature', [
+                'expected' => substr($expectedSignature, 0, 20) . '...',
+                'received' => substr($signature, 0, 20) . '...'
+            ]);
+        }
+
+        return $isValid;
     }
 
     /**
      * Get payment status from Tabby
+     * Uses the correct payments endpoint, not checkout endpoint
      * 
      * @param string $paymentId
      * @return array|null
@@ -374,14 +394,28 @@ class TabbyService
         }
 
         try {
+            // Use payments endpoint, not checkout endpoint
+            $paymentsUrl = $this->baseUrl . '/payments/' . $paymentId;
+            
+            Log::info('Tabby Get Payment Status', [
+                'payment_id' => $paymentId,
+                'url' => $paymentsUrl
+            ]);
+
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . trim($this->apiKey),
                 'Accept' => 'application/json'
-            ])->get($this->apiUrl . '/' . $paymentId);
+            ])->get($paymentsUrl);
 
             if ($response->successful()) {
                 return $response->json();
             }
+
+            Log::warning('Tabby Get Payment Status Failed', [
+                'payment_id' => $paymentId,
+                'status' => $response->status(),
+                'response' => $response->body()
+            ]);
 
             return null;
         } catch (\Exception $e) {
