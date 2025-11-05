@@ -18,7 +18,7 @@ Ameer RAC | Contact Us
   @endif
   <div class="container">
     <div class="row">
-      <div class="col-8">
+      <div class="col-lg-8 col-md-12">
         <div class="rc-section-title rc-section-title_left" data-wow-offset="70" data-wow-delay="100ms">
           <div class="rc-section-title-content">
             <span>{{ __('home.get_in_touch_tagline') }}</span>
@@ -119,7 +119,7 @@ Ameer RAC | Contact Us
           </form>
         </div>
       </div>
-      <div class="col-4">
+      <div class="col-lg-4 col-md-12">
         <div class="contact-form-image">
           <img src="{{ asset('assets/img/contact-form-img.png') }}" alt="Contact Image">
         </div>

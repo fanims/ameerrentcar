@@ -1,7 +1,7 @@
  <section class="page-section rc-why-chose-us">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-8 col-md-12">
                     <div class="rc-section-title rc-section-title_left">
                         <div class="rc-section-title-content">
                             <span>{{ __('home.what_you_want') }}</span>
@@ -11,7 +11,7 @@
                     </div>
                     <button class="rc-btn-theme read-more-btn">{{ __('home.read_more') }}</button>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-12">
                     <div class="rc-why-chose-us-list">
                         <ul>
                             <li>
