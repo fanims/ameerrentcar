@@ -219,8 +219,9 @@
     }
 
     .radio-group {
-      gap: 42px;
+      gap: 20px 40px;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
     }
@@ -230,6 +231,7 @@
       display: flex;
       font-size: 18px;
       font-weight: 500;
+      flex-wrap: nowrap;
       align-items: center;
       color: var(--text-color);
       justify-content: space-between;
@@ -280,9 +282,36 @@
     .btns-wrap {
       gap: 20px;
       display: flex;
+      flex-wrap: wrap;
       margin-top: 24px;
       align-items: center;
       justify-content: center;
+    }
+
+    @media (max-width: 991px) {
+      .car-checkout-details {
+          flex-wrap: wrap;
+      }
+      .car-checkout-details-content {
+        margin-right: 0;
+        padding-right: 0;
+        border-right: none;
+      }
+      .car-checkout-details-form {
+        margin-top: 30px;
+      }
+    }
+    @media (max-width: 576px) {
+      .date-time-row {
+        flex-wrap: wrap;
+      }
+      .date-time-row .form-group {
+        width: 100%;
+      }
+      .btns-wrap .rc-btn-theme {
+        width: 100%;
+        padding: 12px 18px;
+      }
     }
     
   </style>
