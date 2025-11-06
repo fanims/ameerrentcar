@@ -247,11 +247,63 @@
       color: #d4edda;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
+      .rc-add-payment-form-wrap {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .rc-bg-shape-wrap .rc-bg-shape {
+        display: none;
+      }
+      .rc-section-title .btn-back {
+        top: -30px;
+      }
       .expiry-security {
         flex-direction: column;
       }
     }
+
+    @media (max-width: 576px) {
+      .rc-section-title .btn-back {
+        min-width: auto;
+        padding: 12px 18px;
+      }  
+      .rc-add-payment-form-coupon-code .rc-btn-theme {
+        padding: 12px 18px;
+      }
+      .rc-add-payment-form-coupon-code .form-control {
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-horizontal .form-group-wrap {
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+      .form-horizontal .form-group.form-group-half {
+        width: 100%;
+      }
+      .form-horizontal textarea.form-control {
+        min-height: 100px;
+        max-height: 100px;
+      }
+      .rc-add-payment.rc-bg-shape-wrap {
+        padding-top: 80px;
+      }
+      .rc-section-title .btn-back {
+        top: -60px;
+      }
+      .rc-add-payment-form-coupon-code {
+        flex-wrap: wrap;
+      }
+      .rc-add-payment-form.form-horizontal {
+        margin-top: 30px;
+      }
+    }
+
   </style>
 </head>
 

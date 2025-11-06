@@ -2746,6 +2746,7 @@ input[type="checkbox"] {
     gap: 10px;
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     align-items: self-end;
 }
 
@@ -11723,6 +11724,18 @@ input[type="number"]::-webkit-outer-spin-button {
     .rc-footer-contact {
         margin-top: 30px;
     }
+    .rc-add-to-cart-cars-content-wrap {
+        flex-wrap: wrap;
+    }
+    .rc-add-to-cart-content {
+        max-width: 100%;
+    }
+    .rc-add-to-cart-order-summary {
+        margin: 0;
+        padding: 0;
+        max-width: 100%;
+        border-left: none;
+    }
 }
 
 @media (max-width: 767px) {
@@ -11798,6 +11811,9 @@ input[type="number"]::-webkit-outer-spin-button {
     }
     .rc-auth .bg-shape {
         display: none;
+    }
+    .rc-bg-shape-wrap .rc-bg-shape {
+      display: none;
     }
 }
 
@@ -11905,6 +11921,10 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 @media (max-width: 420px) {
+    .rc-btn-theme {
+        width: 100%;
+        padding: 12px 18px;
+    }
     .rc-tabs-vtwo .rc-tabs-list-vtwo li {
         width: 100%;
     }
@@ -11914,5 +11934,9 @@ input[type="number"]::-webkit-outer-spin-button {
     .form-horizontal .rc-btn-theme {
         width: 100%;
         margin-top: 30px;
+    }
+    .rc-add-to-cart-cars-price {
+        width: 100%;
+        margin-left: 0;
     }
 }
