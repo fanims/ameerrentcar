@@ -12,6 +12,10 @@ use App\Http\Controllers\UserController;
 use App\Models\Language;
 
 // routes/web.php
+Route::get('/clear-cache', function () {
+    Artisan::call('optimize:clear');
+    return "✅ All caches cleared successfully!";
+});
 
 
 Route::get('/lang/{locale}', function ($locale) {
