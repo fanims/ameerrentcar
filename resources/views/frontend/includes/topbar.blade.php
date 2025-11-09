@@ -27,7 +27,7 @@
                     <div class="rc-btn-group">
                         @guest
                         <button class="rc-btn rc-btntwo" onclick="window.location.href='{{ route('login') }}';">{{ __('auth.login') }}</button>
-                        <button class="rc-btn rc-btn-theme" onclick="window.location.href='{{ route('login') }}';">{{ __('auth.sign_in') }}</button>
+                        <button class="rc-btn rc-btn-theme" onclick="window.location.href='{{ route('register.form') }}';">{{ __('auth.signup') }}</button>
                         @endguest
                         @auth
                         <button class="rc-btn rc-btn-theme"

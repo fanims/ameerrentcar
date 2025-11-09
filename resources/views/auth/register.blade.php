@@ -1,11 +1,11 @@
-<!-- resources/views/auth/login.blade.php -->
+<!-- resources/views/auth/register.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | Rent It</title>
+    <title>Register | Rent It</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
     @include('frontend.includes.style')
 </head>
@@ -22,8 +22,11 @@
                             <img src="{{ asset('assets/img/logo.png') }}" alt="Logo">
                             <h1>{{ __('auth.hello_there') }}</h1>
                             <p>{{ __('auth.register_desc') }}</p>
-                            <form method="POST" action="{{ route('login') }}" class="rc-auth-form">
+                            <form method="POST" action="{{ route('register') }}" class="rc-auth-form">
                                 @csrf
+                                @if(session('success'))
+                                    <div style="color: green;">{{ session('success') }}</div>
+                                @endif
                                 @if($errors->any())
                                     <div style="color: red;">
                                         @foreach($errors->all() as $error)
@@ -41,18 +44,18 @@
                                 <button class="rc-btn-theme" type="submit">{{ __('auth.register') }}</button>
                             </form>
                             <div class="rc-login-option">
-                                <p>{{ __('auth.dont_have_an_account') }}</p>
+                                <p>{{ __('auth.already_have_an_account') ?? __('auth.dont_have_an_account') }}</p>
                                 <a href="{{ route('login.form') }}">{{ __('auth.login') }}</a>
                             </div>
                         </div>
                         <figure class="rc-auth-img">
-                            <img src="{{ asset('assets/img/login-sec-img.png') }}" alt="Login">
+                            <img src="{{ asset('assets/img/login-sec-img.png') }}" alt="Register">
                         </figure>
                     </div>
                 </div>
             </div>
         </div>
-        <img src="{{ asset('assets/img/bg-shape.png') }}" alt="Login" class="bg-shape">
+        <img src="{{ asset('assets/img/bg-shape.png') }}" alt="Register" class="bg-shape">
     </div>
 </body>
 
