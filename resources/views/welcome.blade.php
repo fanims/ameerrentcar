@@ -210,8 +210,8 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
                     <div class="rc-tabs tabs wow fadeInUp" data-wow-offset="70" data-wow-delay="300ms">
                         <ul id="tabs" class="nav rc-tabs-list">
                             @foreach($car_types as $key => $type)
-                            <li class="{{ $key + 1 == 2 ? 'active' : '' }}">
-                                <a class="{{ $key + 1 == 2 ? 'active' : '' }}" href="#tab-{{ $key + 1 }}"
+                            <li class="{{ $key + 1 == 1 ? 'active' : '' }}">
+                                <a class="{{ $key + 1 == 1 ? 'active' : '' }}" href="#tab-{{ $key + 1 }}"
                                     data-toggle="tab">{{ app()->getLocale() == 'ar' ? $type->name_ar : $type->name_en }}</a>
                             </li>
                             @endforeach
@@ -219,18 +219,20 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
                     </div>
                     <!-- Tab Content -->
                     <div class="tab-content">
-                        <!-- Best Offers -->
-                        <div class="tab-pane fade" id="tab-1">
+                        <!-- Best Offers (default active) -->
+                        <div class="tab-pane fade active in" id="tab-1">
                             <div class="row g-4">
                                 @foreach($cars as $key => $car)
-                                @if($car->car_type == 'Popular' && $key < 9) <div class="col-md-4 col-lg-3 dark">
-                                    @component('components.car',[
-                                    'car' => $car
-                                    ])
-                                    @endcomponent
+                                    @if($car->car_type == 'Best Offer' && $key < 9) 
+                                        <div class="col-md-4 col-lg-3 dark">
+                                            @component('components.car',[
+                                            'car' => $car
+                                            ])
+                                            @endcomponent
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
-                            @endif
-                            @endforeach
             
                             <!-- View All Button -->
                             <div class="col-12 rc-view-all-btn">
@@ -240,18 +242,20 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
                             </div>
                         </div>
             
-                        <!-- Popular Cars (default active) -->
-                        <div class="tab-pane fade show active in" id="tab-2">
+                        <!-- Popular Cars -->
+                        <div class="tab-pane fade" id="tab-2">
                             <div class="row g-4">
                                 @foreach($cars as $key => $car)
-                                @if($car->car_type == 'Best Offer' && $key < 9) <div class="col-md-4 col-lg-3 dark">
-                                    @component('components.car',[
-                                    'car' => $car
-                                    ])
-                                    @endcomponent
+                                    @if($car->car_type == 'Popular' && $key < 9) 
+                                    <div class="col-md-4 col-lg-3 dark">
+                                        @component('components.car',[
+                                        'car' => $car
+                                        ])
+                                        @endcomponent
+                                    </div>
+                                    @endif
+                                @endforeach
                             </div>
-                            @endif
-                            @endforeach
                             <!-- View All Button -->
                             <div class="col-12 rc-view-all-btn">
                                 <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
@@ -264,15 +268,17 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
                         <div class="tab-pane fade" id="tab-3">
                             <div class="row g-4">
                                 @foreach($cars as $key => $car)
-                                @if($car->car_type == 'New' && $key < 9) <div class="col-md-4 col-lg-3 dark">
-        
-                                    @component('components.car',[
-                                    'car' => $car
-                                    ])
-                                    @endcomponent
+                                    @if($car->car_type == 'New' && $key < 9) 
+                                        <div class="col-md-4 col-lg-3 dark">
+                
+                                            @component('components.car',[
+                                            'car' => $car
+                                            ])
+                                            @endcomponent
+                                        </div>
+                                    @endif
+                                @endforeach
                             </div>
-                            @endif
-                            @endforeach
         
                             <!-- View All Button -->
                             <div class="col-12 rc-view-all-btn">
