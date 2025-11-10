@@ -118,82 +118,88 @@ Ameer RAC | Vehicle
                   </div>
               </div>
               <div class="col-12" dir="ltr">
-                  <!-- Tabs Navigation -->
-                  <div class="rc-tabs tabs wow fadeInUp" data-wow-offset="70" data-wow-delay="300ms">
-                      <ul id="tabs" class="nav rc-tabs-list">
-                          @foreach($car_types as $key => $type)
-                          <li class="{{ $key + 1 == 2 ? 'active' : '' }}">
-                              <a class="{{ $key + 1 == 2 ? 'active' : '' }}" href="#tab-{{ $key + 1 }}"
-                                  data-toggle="tab">{{ app()->getLocale() == 'ar' ? $type->name_ar : $type->name_en }}</a>
-                          </li>
-                          @endforeach
-                      </ul>
-                  </div>
-                  <!-- Tab Content -->
-                  <div class="tab-content">
-                      <!-- Best Offers -->
-                      <div class="tab-pane fade" id="tab-1">
-                          <div class="row g-4">
-                              @foreach($cars as $key => $car)
-                              @if($car->car_type == 'Popular' && $key < 9) <div class="col-md-4 col-lg-3 dark">
-                                  @component('components.car',[
-                                  'car' => $car
-                                  ])
-                                  @endcomponent
-                          </div>
-                          @endif
-                          @endforeach
-          
-                          <!-- View All Button -->
-                          <div class="col-12 rc-view-all-btn">
-                              <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
-                                  __('home.view_all')
-                                  }}</a>
-                          </div>
-                      </div>
-          
-                      <!-- Popular Cars (default active) -->
-                      <div class="tab-pane fade show active in" id="tab-2">
-                          <div class="row g-4">
-                              @foreach($cars as $key => $car)
-                              @if($car->car_type == 'Best Offer' && $key < 9) <div class="col-md-4 col-lg-3 dark">
-                                  @component('components.car',[
-                                  'car' => $car
-                                  ])
-                                  @endcomponent
-                          </div>
-                          @endif
-                          @endforeach
-                          <!-- View All Button -->
-                          <div class="col-12 rc-view-all-btn">
-                              <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
-                                  __('home.view_all')
-                                  }}</a>
-                          </div>
-                      </div>
-                      
-                      <!-- Economic Cars -->
-                      <div class="tab-pane fade" id="tab-3">
-                          <div class="row g-4">
-                              @foreach($cars as $key => $car)
-                              @if($car->car_type == 'New' && $key < 9) <div class="col-md-4 col-lg-3 dark">
-      
-                                  @component('components.car',[
-                                  'car' => $car
-                                  ])
-                                  @endcomponent
-                          </div>
-                          @endif
-                          @endforeach
-      
-                          <!-- View All Button -->
-                          <div class="col-12 rc-view-all-btn">
-                              <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
-                                  __('home.view_all')
-                                  }}</a>
-                          </div>
-                      </div>
-                  </div>
+                    <!-- Tabs Navigation -->
+                    <div class="rc-tabs tabs wow fadeInUp" data-wow-offset="70" data-wow-delay="300ms">
+                        <ul id="tabs" class="nav rc-tabs-list">
+                            @foreach($car_types as $key => $type)
+                            <li class="{{ $key + 1 == 1 ? 'active' : '' }}">
+                                <a class="{{ $key + 1 == 1 ? 'active' : '' }}" href="#tab-{{ $key + 1 }}"
+                                    data-toggle="tab">{{ app()->getLocale() == 'ar' ? $type->name_ar : $type->name_en }}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <!-- Tab Content -->
+                    <div class="tab-content">
+                        <!-- Best Offers (default active) -->
+                        <div class="tab-pane fade" id="tab-1">
+                            <div class="row g-4">
+                                @foreach($cars as $key => $car)
+                                    @if($car->car_type == 'Best Offer' && $key < 9) 
+                                        <div class="col-md-4 col-lg-3 dark">
+                                            @component('components.car',[
+                                            'car' => $car
+                                            ])
+                                            @endcomponent
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+            
+                            <!-- View All Button -->
+                            <div class="col-12 rc-view-all-btn">
+                                <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
+                                    __('home.view_all')
+                                    }}</a>
+                            </div>
+                        </div>
+            
+                        <!-- Popular Cars -->
+                        <div class="tab-pane fade active in" id="tab-2">
+                            <div class="row g-4">
+                                @foreach($cars as $key => $car)
+                                    @if($car->car_type == 'Popular' && $key < 9) 
+                                    <div class="col-md-4 col-lg-3 dark">
+                                        @component('components.car',[
+                                        'car' => $car
+                                        ])
+                                        @endcomponent
+                                    </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                            <!-- View All Button -->
+                            <div class="col-12 rc-view-all-btn">
+                                <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
+                                    __('home.view_all')
+                                    }}</a>
+                            </div>
+                        </div>
+                        
+                        <!-- Economic Cars -->
+                        <div class="tab-pane fade" id="tab-3">
+                            <div class="row g-4">
+                                @foreach($cars as $key => $car)
+                                    @if($car->car_type == 'New' && $key < 9) 
+                                        <div class="col-md-4 col-lg-3 dark">
+                
+                                            @component('components.car',[
+                                            'car' => $car
+                                            ])
+                                            @endcomponent
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+        
+                            <!-- View All Button -->
+                            <div class="col-12 rc-view-all-btn">
+                                <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{
+                                    __('home.view_all')
+                                    }}</a>
+                            </div>
+                        </div>
+                    </div>
               </div>
           </div>
       </div>
@@ -427,6 +433,22 @@ Ameer RAC | Vehicle
       loadMoreBtn.style.display = 'none';
     }
   });
+  
+  var swiper = new Swiper(".bannerSlider", {
+        loop: true,                // Infinite loop
+        autoplay: {                // Auto play
+        delay: 3000,
+        disableOnInteraction: false,
+        },
+        pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        },
+        navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        },
+    });
 </script>
 
 
