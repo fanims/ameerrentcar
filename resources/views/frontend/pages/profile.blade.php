@@ -8,105 +8,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     @include('frontend.includes.style')
-    <style>
-
-        .btn-primary {
-            background-color: #ce933c;
-            border-color: #ce933c;
-            color: #000;
-            font-weight: 600;
-            padding: 10px 28px;
-            border-radius: 25px;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #b3842c;
-            border-color: #b3842c;
-            color: #000;
-        }
-
-        .table thead th {
-            border-bottom: 2px solid #ce933c;
-            color: #ce933c;
-        }
-
-        .table tbody td {
-            color: #ce933c;
-            border-top: 1px solid #444;
-        }
-
-        .table {
-            background-color: #111111;
-            border-radius: 6px;
-        }
-
-        .btn-gold {
-            background-color: #ce933c;
-            color: #000;
-            font-weight: 600;
-            padding: 6px 16px;
-            border-radius: 20px;
-            border: 1.5px solid #b3842c;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.875rem;
-            text-decoration: none;
-        }
-
-        .btn-gold:hover,
-        .btn-gold:focus {
-            background-color: #b3842c;
-            color: #000;
-            text-decoration: none;
-            border-color: #92732a;
-            box-shadow: 0 0 8px #b3842caa;
-            outline: none;
-        }
-
-
-        /* Responsive for small screens */
-        @media (max-width: 767.98px) {
-            .profile-container {
-                flex-direction: column;
-                min-height: auto;
-            }
-
-            .nav-pills.flex-column {
-                flex-direction: row !important;
-                border-right: none;
-                border-bottom: 2px solid #ce933c;
-                min-width: 100%;
-                margin-bottom: 1rem;
-                padding: 0.5rem;
-                overflow-x: auto;
-            }
-
-            .nav-pills .nav-link {
-                border-left: none;
-                border-radius: 25px;
-                margin: 0 0.5rem;
-            }
-
-            .tab-content {
-                padding: 1rem 1rem 2rem;
-            }
-        }
-                .baton {
-            border-radius: 20px;
-            border: none;
-            background-color: #ce933c;
-            color: #000002;
-            font-size: 12px;
-            font-weight: bold;
-            padding: 12px 45px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            transition: transform 80ms ease-in;
-        }
-    </style>
 </head>
 
 <body>
@@ -164,7 +65,7 @@
                             <!-- Profile Details Tab -->
                             <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
                                 <form action="{{ route('web.user.update') }}" method="POST" enctype="multipart/form-data"
-                                    class="mt-0">
+                                    class="form-horizontal">
                                     @csrf
                                     @method('PUT')
                                     <div class="form-group-wrap">
@@ -207,35 +108,39 @@
                                         </ul>
                                         @endif
                                     </div>
-            
-                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    
+                                    <div class="rc-update-btn">
+                                        <button type="submit" class="rc-btn rc-btntwo">Update</button>
+                                    </div>
                                 </form>
                             </div>
             
                             <!-- Settings Tab -->
                             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                                <form action="{{ route('user.update.password', $user->id) }}" method="POST" class="mt-0">
+                                <form action="{{ route('user.update.password', $user->id) }}" method="POST" class="form-horizontal">
                                     @csrf
                                     @method('PUT')
-            
-                                    <div class="form-group">
-                                        <label for="password">New Password</label>
-                                        <input id="password" type="password" name="password" class="form-control" required />
+
+                                    <div class="form-group-wrap">
+                                        <div class="form-group form-group-half">
+                                            <label for="password">New Password</label>
+                                            <input id="password" type="password" name="password" class="form-control" required />
+                                        </div>
+                                        <div class="form-group form-group-half">
+                                            <label for="password_confirmation">Confirm New Password</label>
+                                            <input id="password_confirmation" type="password" name="password_confirmation" class="form-control" required />
+                                        </div>
                                     </div>
             
-                                    <div class="form-group">
-                                        <label for="password_confirmation">Confirm New Password</label>
-                                        <input id="password_confirmation" type="password" name="password_confirmation"
-                                            class="form-control" required />
+                                    <div class="rc-update-btn">
+                                        <button type="submit" class="rc-btn rc-btntwo">Update</button>
                                     </div>
-            
-                                    <button type="submit" class="btn btn-primary">Change Password</button>
                                 </form>
                             </div>
             
                             <!-- Orders Tab -->
                             <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                                <div class="table-responsive mt-0">
+                                <div class="table-responsive">
                                     <table class="table table-dark table-striped">
                                         <thead>
                                             <tr>
@@ -245,19 +150,18 @@
                                                 <th>Dropoff</th>
                                                 <th>Total</th>
                                                 <th>Status</th>
-                                                <th>Details</th> <!-- New column -->
-            
+                                                <th>Details</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @forelse ($orders as $order)
                                             <tr>
-                                                <td>{{ $order->order_id }}</td>
-                                                <td>{{ $order->car->name[App::getLocale()] ?? $order->car->name ?? 'N/A' }}</td>
-                                                <td>{{ $order->pickup_date }} at {{ $order->pickup_time }}</td>
-                                                <td>{{ $order->dropoff_date }} at {{ $order->dropoff_time }}</td>
-                                                <td>{{ number_format($order->grand_total, 2) }} AED</td>
-                                                <td>{{ ucfirst($order->status) }}</td>
+                                                <td data-label="Order ID">{{ $order->order_id }}</td>
+                                                <td data-label="Car">{{ $order->car->name[App::getLocale()] ?? $order->car->name ?? 'N/A' }}</td>
+                                                <td data-label="Pickup">{{ $order->pickup_date }} at {{ $order->pickup_time }}</td>
+                                                <td data-label="Dropoff">{{ $order->dropoff_date }} at {{ $order->dropoff_time }}</td>
+                                                <td data-label="Total">{{ number_format($order->grand_total, 2) }} AED</td>
+                                                <td data-label="Status">{{ ucfirst($order->status) }}</td>
                                                 <td>
                                                     <button class="baton view-order-details"
                                                         data-order='@json($order)'>
