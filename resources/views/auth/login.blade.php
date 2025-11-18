@@ -19,7 +19,9 @@
                 <div class="col-12">
                     <div class="rc-auth-wrap">
                         <div class="rc-auth-content">
-                            <img src="{{ asset('assets/img/logo.png') }}" alt="Logo">
+                            <a href="{{ route('home') }}">
+                                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo">
+                            </a>
                             <h1>{{ __('auth.welcome_back') }}</h1>
                             <p>{{ __('auth.login_desc') }}</p>
                             <form method="POST" action="{{ route('login') }}" class="rc-auth-form">

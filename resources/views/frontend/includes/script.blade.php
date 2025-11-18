@@ -187,4 +187,23 @@ $car = Car::latest()->first();
     @endif
 </script>
 
+<script>
+  // Add rc-active class to buttons when clicked
+  document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll('.rc-btn-group .rc-btn');
+    
+    buttons.forEach(function(button) {
+      button.addEventListener('click', function(e) {
+        // Remove rc-active class from all buttons in the group
+        buttons.forEach(function(btn) {
+          btn.classList.remove('rc-active');
+        });
+        
+        // Add rc-active class to the clicked button
+        this.classList.add('rc-active');
+      });
+    });
+  });
+</script>
+
 @stack('script')
