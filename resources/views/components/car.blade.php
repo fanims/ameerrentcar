@@ -16,15 +16,6 @@
         <a href="{{ route('checkout', $car->slug) }}">
             <img loading="lazy" src="{{ asset('storage/' . $car->thumbnail_image) }}" class="card-img-top"
                 alt="{{ trans_field($car->name) }}" />
-    
-            <!-- Overlay -->
-            <div class="image-overlay"></div>
-    
-            <!-- Details Button -->
-            <span"
-                class="btn btn-theme btn-theme-transparent item-btn details-btn">
-                {{ __('home.details') }}
-            </span>
         </a>
     </div>
 
@@ -33,6 +24,11 @@
         <span class="item-manufacturer">
             {{ $car->category->name[App::getLocale()] ?? $car->category->name['en'] ?? '' }}
         </span>
+    
+        <!-- Details Button -->
+        <a href="{{ route('checkout', $car->slug) }}" class="rc-detail">
+            {{ __('home.details') }}
+        </a>
 
         <!-- Title -->
         <h5 class="item-model">

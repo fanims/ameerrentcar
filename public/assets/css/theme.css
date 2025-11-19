@@ -1735,6 +1735,14 @@ input[type="checkbox"] {
     font-weight: 600;
     color: var(--text-color);
 }
+.rc-detail {
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 6px;
+    font-weight: 500;
+    color: var(--theme-color);
+    text-decoration: underline;
+}
 .item-model {
     font-size: 14px;
     font-weight: 400;
