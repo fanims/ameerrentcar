@@ -739,21 +739,6 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
     // setInterval(nextSlide, 5000);
 </script> -->
 <script>
-  function changeMainImage(thumbnail) {
-    const mainImage = document.getElementById('mainCarImage');
-
-    // Step 1: fade out
-    mainImage.classList.add('fade-out');
-
-    // Step 2: after transition, change src and fade back in
-    mainImage.addEventListener('transitionend', function handler() {
-      mainImage.src = thumbnail.src;
-      mainImage.classList.remove('fade-out');
-      mainImage.removeEventListener('transitionend', handler);
-    });
-  }
-</script>
-<script>
     var swiper = new Swiper(".bannerSlider", {
         loop: true,                // Infinite loop
         autoplay: {                // Auto play
@@ -802,5 +787,20 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
         swiper: swiper,
       },
     });
+
+    
+    function changeMainImage(thumbnail) {
+        const mainImage = document.getElementById('mainCarImage');
+
+        // Step 1: fade out
+        mainImage.classList.add('fade-out');
+
+        // Step 2: after transition, change src and fade back in
+        mainImage.addEventListener('transitionend', function handler() {
+        mainImage.src = thumbnail.src;
+        mainImage.classList.remove('fade-out');
+        mainImage.removeEventListener('transitionend', handler);
+        });
+    }
 </script>
 @endpush
