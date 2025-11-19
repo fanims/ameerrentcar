@@ -52,8 +52,10 @@
             @endif -->
             <div class="item-price">
                 <span class="duration">{{ __('home.monthly') }}</span>
-                <span class="currency">{{ getCurrencySymbol() }}</span>
-                <span class="price">{{ $car->current_price_per_month }}</span>
+                <!-- <span class="currency">{{ getCurrencySymbol() }}</span>
+                <span class="price">{{ $car->current_price_per_month }}</span> -->
+                <span class="currency">-</span>
+                <span class="price">-</span>
             </div>
             <!-- @if ($car->base_price_per_week != $car->current_price_per_week)
                 <div class="item-price">
@@ -64,8 +66,10 @@
             @endif -->
             <div class="item-price">
                 <span class="duration">{{ __('home.weekly') }}</span>
-                <span class="currency">{{ getCurrencySymbol() }}</span>
-                <span class="price">{{ $car->current_price_per_week }}</span>
+                <!-- <span class="currency">{{ getCurrencySymbol() }}</span>
+                <span class="price">{{ $car->current_price_per_week }}</span> -->
+                <span class="currency">-</span>
+                <span class="price">-</span>
             </div>
             <!-- @if ($car->base_price_per_day != $car->current_price_per_day)
                 <div class="item-price">

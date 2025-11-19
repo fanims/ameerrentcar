@@ -377,7 +377,7 @@ Ameer RAC | Checkout
               </div>
               <div class="action-buttons">
                 <button onclick="window.open('https://wa.me/{{ $setting->phone }}', '_blank')" class="action-btn whatsapp-btn">
-                  <i class="fab fa-whatsapp"></i>
+                  <i class="bi bi-whatsapp"></i>
                 </button>
                 <button onclick="window.location.href='tel:{{ $setting->phone }}'" class="action-btn call-btn">
                   <i class="fa fa-phone"></i>
@@ -452,11 +452,14 @@ Ameer RAC | Checkout
               <div class="price-row">
                 <div class="price-label">
                   <div class="price-icon">
-                    
                     <span class="" style="">AED</span>
                   </div>
-                  <div class="price-value">
+                  <!-- <div class="price-value">
                     {{ $car->current_price_per_week }} <span class="price-unit">{{ getCurrencySymbol() }} / {{
+                      __('home.week') }}</span>
+                  </div> -->
+                  <div class="price-value">
+                    0 <span class="price-unit">{{ getCurrencySymbol() }} / {{
                       __('home.week') }}</span>
                   </div>
                 </div>
@@ -477,12 +480,15 @@ Ameer RAC | Checkout
               <div class="price-row">
                 <div class="price-label">
                   <div class="price-icon">
-                    
                     <span class="" style="">AED</span>
                   </div>
-                  <div class="price-value">
+                  <!-- <div class="price-value">
                     {{ $car->current_price_per_month }} <span class="price-unit">{{ getCurrencySymbol() }} / {{
                       __('home.month') }}</span>
+                  </div> -->
+                  <div class="price-value">
+                    0 <span class="price-unit">{{ getCurrencySymbol() }} / {{
+                      __('home.week') }}</span>
                   </div>
                 </div>
                 <div class="mileage-value">
@@ -502,12 +508,15 @@ Ameer RAC | Checkout
               <div class="price-row">
                 <div class="price-label">
                   <div class="price-icon">
-                    
                     <span class="" style="">AED</span>
                   </div>
-                  <div class="price-value">
+                  <!-- <div class="price-value">
                     {{ $car->current_price_per_hour }} <span class="price-unit">{{ getCurrencySymbol() }}/{{
                       __('home.hour') }}</span>
+                  </div> -->
+                  <div class="price-value">
+                    0 <span class="price-unit">{{ getCurrencySymbol() }} / {{
+                      __('home.week') }}</span>
                   </div>
                 </div>
                 <div class="mileage-value">
