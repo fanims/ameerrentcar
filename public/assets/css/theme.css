@@ -2331,6 +2331,11 @@ input[type="checkbox"] {
     height: 267px;
     object-fit: cover;
     border-radius: 15px;
+    transition: opacity 0.3s ease;
+}
+
+.car-main-image.fade-out {
+    opacity: 0;
 }
 
 .car-thumbnail-container {

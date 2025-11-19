@@ -355,12 +355,12 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
                                     id="tab-x{{ $catIndex+1 }}x{{ $carIndex+1 }}">
                                     <div class="rc-inner-tab-content">
                                         <div class="rc-car-imgs-slider">
-                                            <img id="mainCarImage" src="{{ asset('storage/'. $car->thumbnail_image) }}" alt="{{ trans_field($car->name) }}"
-                                            class="car-main-image">
+                                            <img id="mainCarImage-{{ $catIndex+1 }}-{{ $carIndex+1 }}" src="{{ asset('storage/'. $car->thumbnail_image) }}" alt="{{ trans_field($car->name) }}"
+                                                class="car-main-image">
                                         <div class="car-thumbnail-container">
                                         @foreach($car->images as $index => $image)
                                         <img src="{{ asset('storage/'.$image->image_path) }}" alt="{{ trans_field($car->name) }}"
-                                            class="car-thumbnail" style="cursor: pointer;" onclick="changeMainImage(this)">
+                                            class="car-thumbnail" style="cursor: pointer;" onclick="changeMainImage(this, 'mainCarImage-{{ $catIndex+1 }}-{{ $carIndex+1 }}')">
                                         @endforeach
                                     </div>
                                 </div>
@@ -789,18 +789,34 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
     });
 
     
-    function changeMainImage(thumbnail) {
-        const mainImage = document.getElementById('mainCarImage');
+    function changeMainImage(thumbnail, mainImageId) {
+        // Find the main image by traversing the DOM from the clicked thumbnail
+        const sliderContainer = thumbnail.closest('.rc-car-imgs-slider');
+        if (!sliderContainer) return;
+        
+        const mainImage = sliderContainer.querySelector('.car-main-image');
+        if (!mainImage) return;
 
         // Step 1: fade out
         mainImage.classList.add('fade-out');
 
         // Step 2: after transition, change src and fade back in
-        mainImage.addEventListener('transitionend', function handler() {
-        mainImage.src = thumbnail.src;
-        mainImage.classList.remove('fade-out');
-        mainImage.removeEventListener('transitionend', handler);
-        });
+        const handler = function() {
+            mainImage.src = thumbnail.src;
+            mainImage.classList.remove('fade-out');
+            mainImage.removeEventListener('transitionend', handler);
+        };
+        
+        mainImage.addEventListener('transitionend', handler);
+        
+        // Fallback: if transition doesn't fire (e.g., already at 0 opacity), change immediately
+        setTimeout(function() {
+            if (mainImage.classList.contains('fade-out')) {
+                mainImage.src = thumbnail.src;
+                mainImage.classList.remove('fade-out');
+                mainImage.removeEventListener('transitionend', handler);
+            }
+        }, 350);
     }
 </script>
 @endpush
