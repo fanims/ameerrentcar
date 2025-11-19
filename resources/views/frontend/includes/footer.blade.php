@@ -52,7 +52,7 @@
                     <h4>Visit our office</h4>
                     <p>Airport Rd , Al Khabaisi, Dubai, United Arab Emirate</p>
                     <h4>Contact Us</h4>
-                    <p>+971 123 123 123</p>
+                    <p>{{ $settings[0]['phone'] ?? '' }}</p>
                     <p>ameer.rentcar@gmail.com</p>
                 </div>
             </div>
