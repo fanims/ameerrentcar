@@ -161,7 +161,7 @@ class FrontendController extends Controller
     {
         $cars = Car::where('brand_id', $id)->get();
         $brands = Brand::all();
-        $car_types = Car::select('car_type')->distinct()->get();
+        $car_types = CarType::latest()->get();
         $car_models = Car::select('model_year')->distinct()->get();
         $car_price = Car::select('current_price_per_week')->distinct()->get();
         $categories = Category::all();
