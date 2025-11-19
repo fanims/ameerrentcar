@@ -362,7 +362,7 @@
                   <span>{{ $extra['label'] }} - {{ $extra['price'] }} AED</span>
                   <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input extra-charge" id="{{ $extra['id'] }}" name="extras[]"
-                      value="{{ $extra['id'] }}" data-price="{{ $extra['price'] }}">
+                      value="{{ $extra['id'] }}" data-price="{{ $extra['price'] }}" {{ $extra['id'] === 'deposit_fee' ? 'checked' : '' }}>
                     <label class="custom-control-label" for="{{ $extra['id'] }}"></label>
                     <input type="hidden" name="extra_prices[{{ $extra['id'] }}]" value="{{ $extra['price'] }}">
                   </div>
