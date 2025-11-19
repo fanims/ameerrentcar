@@ -150,7 +150,6 @@ Ameer RAC | About Us
 
   .story-timeline {
     position: relative;
-    max-width: 1200px;
     margin: 0 auto;
     z-index: 2;
   }
@@ -175,13 +174,30 @@ Ameer RAC | About Us
   }
 
   .milestone-box {
-    background: transparent;
-    border: 2px solid #D4AF37;
-    border-radius: 15px;
-    padding: 30px;
+    gap: 18px;
+    padding: 15px;
+    display: flex;
+    max-width: 424px;
     position: relative;
+    border-radius: 15px;
+    align-items: flex-start;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 1);
+    border: 1px solid rgba(101, 99, 99, 1);
+  }
+
+  .milestone-box.milestone-box-1 {
+    margin-left: auto;
+  }
+
+  .milestone-box.milestone-box-2 {
+    margin-top: 30px;
+  }
+  
+  .milestone-box.milestone-box-4 {
+    margin-top: 30px;
+    margin-left: auto;
   }
 
   .milestone-box:hover {
@@ -190,50 +206,35 @@ Ameer RAC | About Us
   }
 
   .milestone-icon {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #D4AF37, #FFD700);
-    border-radius: 50%;
+    flex:none;
+    width: 60px;
+    height: 60px;
     display: flex;
+    border-radius: 50%;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #000000;
+    background: linear-gradient(140.97deg, #131313 23.76%, #1F1D1D 61.91%, #2A2828 74.58%, #262525 85.17%);
   }
 
   .milestone-title {
-    color: #ffffff;
     font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 15px;
+    font-weight: 500;
+    margin-bottom: 7px;
+    color: var(--text-color);
     text-transform: uppercase;
-    letter-spacing: 1px;
   }
 
   .milestone-description {
-    color: #ffffff;
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 15px;
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: rgba(101, 98, 99, 1);
   }
 
   .milestone-date {
-    color: #D4AF37;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 15px;
-  }
-
-  .growth-icon {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 30px;
-    height: 30px;
-    color: #D4AF37;
-    font-size: 20px;
-    animation: pulse 2s infinite;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    color: rgba(101, 98, 99, 1);
   }
 
   @keyframes pulse {
@@ -246,22 +247,6 @@ Ameer RAC | About Us
     100% {
       transform: scale(1);
     }
-  }
-
-  .milestone-box:nth-child(1) {
-    animation: slideInLeft 0.8s ease-out;
-  }
-
-  .milestone-box:nth-child(2) {
-    animation: slideInRight 0.8s ease-out 0.2s both;
-  }
-
-  .milestone-box:nth-child(3) {
-    animation: slideInLeft 0.8s ease-out 0.4s both;
-  }
-
-  .milestone-box:nth-child(4) {
-    animation: slideInRight 0.8s ease-out 0.6s both;
   }
 
   @keyframes slideInLeft {
@@ -383,6 +368,13 @@ Ameer RAC | About Us
   </section>
   <!-- banner section -->
 
+  <!-- Who we are -->
+  @component('components.whoWeAre', [
+  'from' => 'about'
+  ])
+  @endcomponent
+  <!-- /Who we are -->
+
 
   <div class="page-section rc-our-mission">
     <div class="container">
@@ -398,7 +390,7 @@ Ameer RAC | About Us
                     and more. Available for daily, weekly, and monthly rentals.
                   </p>
                 </div>
-                <span></span>
+                <img src="{{ asset('assets/img/about-card-shape.png') }}" alt="shape" class="about-card-shape">
               </div>
               <div class="rc-mission-card second-card">
                 <div class="rc-our-mission-card">
@@ -409,7 +401,7 @@ Ameer RAC | About Us
                     families, groups, and special occasions.
                   </p>
                 </div>
-                <span></span>
+                <img src="{{ asset('assets/img/about-card-shape.png') }}" alt="shape" class="about-card-shape">
               </div>
             </div>
         </div>
@@ -440,6 +432,12 @@ Ameer RAC | About Us
     </div>
   </div>
 
+<!-- support section -->
+@component('components.whyChoseUs')
+
+@endcomponent
+<!-- /support section -->
+
   <!-- Our Story Section -->
   <section class="our-story-section">
     <div class="container">
@@ -452,86 +450,82 @@ Ameer RAC | About Us
       </div>
 
       <div class="story-timeline">
-        <div class="story-car-image">
-          <img src="{{ asset('storage/sliders/banner-img-1.png') }}" alt="Luxury Car" class="img-fluid">
-        </div>
-
-        <div class="story-milestones">
-          <!-- Left Column -->
-          <div class="milestone-box">
-            <div class="milestone-icon">
-              <i class="fas fa-calendar-alt"></i>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="milestone-box milestone-box-1">
+              <div class="milestone-icon">
+                <img src="{{ asset('assets/img/calander.png') }}" alt="calander">
+              </div>
+              <div>
+                <h4 class="milestone-title">Company Founded</h4>
+                <p class="milestone-description">
+                  Luxury Rent a Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.
+                </p>
+                <div class="milestone-date">Date: January 1, 2011</div>
+                <div class="growth-icon">
+                  <i class="fas fa-bolt"></i>
+                </div>
+              </div>
             </div>
-            <h4 class="milestone-title">Company Founded</h4>
-            <p class="milestone-description">
-            Luxury Rent a Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.
-            </p>
-            <div class="milestone-date">Date: January 1, 2011</div>
-            <div class="growth-icon">
-              <i class="fas fa-bolt"></i>
+            <div class="milestone-box milestone-box-2">
+              <div class="milestone-icon">
+                <img src="{{ asset('assets/img/calander.png') }}" alt="calander">
+              </div>
+              <div>
+                <h4 class="milestone-title">Company Founded</h4>
+                <p class="milestone-description">
+                  Luxury Rent a Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.
+                </p>
+                <div class="milestone-date">Date: January 1, 2011</div>
+                <div class="growth-icon">
+                  <i class="fas fa-bolt"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="story-car-image">
+              <img src="{{ asset('assets/img/story-img.png') }}" alt="Luxury Car" class="img-fluid">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="milestone-box milestone-box-3">
+              <div class="milestone-icon">
+                <img src="{{ asset('assets/img/calander.png') }}" alt="calander">
+              </div>
+              <div>
+                <h4 class="milestone-title">Company Founded</h4>
+                <p class="milestone-description">
+                  Luxury Rent a Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.
+                </p>
+                <div class="milestone-date">Date: January 1, 2011</div>
+                <div class="growth-icon">
+                  <i class="fas fa-bolt"></i>
+                </div>
+              </div>
+            </div>
+            <div class="milestone-box milestone-box-4">
+              <div class="milestone-icon">
+                <img src="{{ asset('assets/img/calander.png') }}" alt="calander">
+              </div>
+              <div>
+                <h4 class="milestone-title">Company Founded</h4>
+                <p class="milestone-description">
+                  Luxury Rent a Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.
+                </p>
+                <div class="milestone-date">Date: January 1, 2011</div>
+                <div class="growth-icon">
+                  <i class="fas fa-bolt"></i>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="milestone-box">
-            <div class="milestone-icon">
-              <i class="fas fa-globe"></i>
-            </div>
-            <h4 class="milestone-title">Expansion to Global Markets</h4>
-            <p class="milestone-description">
-              Opened branches in Abu Dhabi, Dubai, expanding our services across the UAE.
-            </p>
-            <div class="milestone-date">Date: January 1, 2020</div>
-            <div class="growth-icon">
-              <i class="fas fa-bolt"></i>
-            </div>
-          </div>
-
-          <!-- Right Column -->
-          <div class="milestone-box">
-            <div class="milestone-icon">
-              <i class="fas fa-users"></i>
-            </div>
-            <h4 class="milestone-title">Reached 40,000 Customers</h4>
-            <p class="milestone-description">
-              Celebrated a milestone of serving 40,000 satisfied customers with our luxury car rental services.
-            </p>
-            <div class="milestone-date">Date: June 1, 2024</div>
-            <div class="growth-icon">
-              <i class="fas fa-bolt"></i>
-            </div>
-          </div>
-
-          <div class="milestone-box">
-            <div class="milestone-icon">
-              <i class="fas fa-trophy"></i>
-            </div>
-            <h4 class="milestone-title">Industry Recognition</h4>
-            <p class="milestone-description">
-              Received the "Best Luxury Car Rental Company in UAE" award at the Middle East Business Awards.
-            </p>
-            <div class="milestone-date">Date: November 1, 2023</div>
-            <div class="growth-icon">
-              <i class="fas fa-bolt"></i>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </section>
   <!-- /Our Story Section -->
-
-  <!-- support section -->
-  @component('components.whyChoseUs')
-
-  @endcomponent
-  <!-- /support section -->
-
-  <!-- Who we are -->
-  @component('components.whoWeAre', [
-  'from' => 'about'
-  ])
-  @endcomponent
-  <!-- /Who we are -->
 
   <!-- requirement section -->
   @component('components.requirements',[

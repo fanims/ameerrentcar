@@ -24,7 +24,7 @@
                             <li>Professional Chauffeur Services</li>
                             <li>Authentic Desert Safari Packages</li>
                         </ul>
-                        <a href="{{ route('vahicles') }}" class="rc-btn-theme">{{ __('home.read_more') }}</a>
+                        <a href="{{ route('about-us') }}" class="rc-btn-theme">{{ __('home.read_more') }}</a>
                     </div>
                 </div>
             </div>

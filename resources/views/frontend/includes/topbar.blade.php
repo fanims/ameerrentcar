@@ -9,7 +9,7 @@
                     <span class="rc-topbar-phone">{{ $settings[0]['phone'] ?? '' }}</span>
                     <div class="rc-topbar-opening-time">
                         <span>OPENING TIME:</span>
-                        @if (!empty($settings[0]['opening_schedule']))
+                        <!-- @if (!empty($settings[0]['opening_schedule']))
                         @php
                         $today = \Carbon\Carbon::now()->format('l'); // e.g., "Monday"
                         $todaySchedule = $settings[0]['opening_schedule'][$today] ?? null;
@@ -22,7 +22,8 @@
                         @endif
                         @else
                         Not Set
-                        @endif
+                        @endif -->
+                        24/7
                     </div>
                     <div class="rc-btn-group">
                         @guest
