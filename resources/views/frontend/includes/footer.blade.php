@@ -49,6 +49,9 @@
             </div>
             <div class="col-lg-3">
                 <div class="rc-footer-contact">
+                    @php
+                        $settings = getWebsiteSetting();
+                    @endphp
                     <h4>Visit our office</h4>
                     <p>Airport Rd , Al Khabaisi, Dubai, United Arab Emirate</p>
                     <h4>Contact Us</h4>
