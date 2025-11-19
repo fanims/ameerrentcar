@@ -618,6 +618,7 @@ Ameer RAC | About Us
 
 @endsection
 
+@push('script')
 <script>
   var swiper = new Swiper(".bannerSlider", {
     loop: true,                // Infinite loop
@@ -635,3 +636,4 @@ Ameer RAC | About Us
     },
   });  
 </script>
+@endpush
