@@ -464,7 +464,7 @@ Ameer RAC | About Us
             </div>
             <h4 class="milestone-title">Company Founded</h4>
             <p class="milestone-description">
-              Phantom Rent Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.
+            Luxury Rent a Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.
             </p>
             <div class="milestone-date">Date: January 1, 2011</div>
             <div class="growth-icon">

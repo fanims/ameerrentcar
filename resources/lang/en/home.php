@@ -77,7 +77,7 @@ return [
     'requirements_tagline' => '- Rental Requirements -',
     'requirements' => 'Unlock Your Dream Ride - 3 Easy Steps',
     'requirements_desc' => 'Renting a luxury car in Dubai should be as smooth as the ride itself. Whether you’re a tourist or resident, our experts will guide you through the simple document process so you can hit the road stress-free. Check out the quick guide below to get started on your premium drive.',
-    'you_must_provide' => '  You must provide the Phantom Car Rental company with specific
+    'you_must_provide' => '  You must provide the Luxury Car Rental company with specific
                     documentation in order to rent a premium vehicle in Dubai.
                     Tourists and UAE residents require different sets of documents
                     to rent a premium car in Dubai.',
@@ -105,7 +105,7 @@ return [
     'IDP' => 'IDP',
     'IDP_desc' => '(International Driving Permit)',
     'rent_your_car_in_dubain' => 'Rent Your Luxury Car in Dubai in 3 Easy Steps',
-    'rent_your_car_in_dubain_desc_1' => 'You must provide the Phantom Car Rental company with specific
+    'rent_your_car_in_dubain_desc_1' => 'You must provide the Luxury Car Rental company with specific
                     documentation in order to rent a premium vehicle in Dubai.
                     Tourists and UAE residents require different sets of documents
                     to rent a premium car in Dubai.',
@@ -134,7 +134,7 @@ return [
     'see_people_ask_about_us' => 'See What People Ask to Us',
     'faqs_desc' => 'From rental requirements to delivery options, here are the most common questions our customers ask — all in one place to make your experience smoother, faster, and stress-free.',
     'how_can_i_drop_rental_car' => 'How Can I Rent Luxury Car In Dubai?',
-    'how_can_i_drop_rental_car_desc' => 'To rent luxury car in Dubai with Phantom Rent a Car, you can follow these steps: provide the required documents (driving license, passport, and visa), select the desired vehicle, review the rental terms and conditions, make a reservation online or in person, and arrange for pickup or delivery of the rental car.',
+    'how_can_i_drop_rental_car_desc' => 'To rent luxury car in Dubai with Luxury Rent a Car, you can follow these steps: provide the required documents (driving license, passport, and visa), select the desired vehicle, review the rental terms and conditions, make a reservation online or in person, and arrange for pickup or delivery of the rental car.',
     'where_can_i_rent_a_car' => 'How Much Does It Cost For Luxury Car Rental In Dubai?',
     'where_can_i_rent_a_car_desc' => 'The cost of renting a luxury car in Dubai varies depending on factors such as the type of vehicle rental duration. Generally, prices start from around 200 AED per day for economy cars and can go up to several 5,000 AED per day for exotic cars.',
     'if_a_car_crash_what_happed' => 'Is it cheaper to rent a car or take a taxi in Dubai?',

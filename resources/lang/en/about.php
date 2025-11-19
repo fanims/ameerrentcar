@@ -28,7 +28,7 @@ Contact us today to book your luxury ride or reserve your spot on our next Deser
     'where_from_we_start' => 'From where we start?',
     'here_our_journy' => 'Heres Our Journey',
     'company_found' => 'COMPANY FOUNDED',
-    'company_found_description' => 'Phantom Rent Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.',
+    'company_found_description' => 'Luxury Rent a Car was founded by Khaled Aki in Abu Dhabi and later expanded to Dubai, UAE.',
     'found_date' => 'Date: January 1, 2011',
     'expension_to_international_market' => 'EXPANSION TO INTERNATIONAL MARKETS',
     'expension_to_international_market_description' => 'Opened branches in Abu Dhabi, Dubai, expanding our services across the UAE.',

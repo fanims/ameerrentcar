@@ -155,8 +155,7 @@ body {
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-    background: url(https://img.icons8.com/cotton/64/000000/calendar.png) no-repeat;
-  background-size: 21px 21px;
+    
 }
 
 .hero-section {
