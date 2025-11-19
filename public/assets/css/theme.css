@@ -113,6 +113,7 @@ body {
 .rc-btn-group {
     gap: 10px;
     display: flex;
+    position: relative;
     align-items: center;
 }
 .rc-btn-group .rc-btn {
@@ -128,9 +129,34 @@ body {
     background: transparent;
     color: var(--text-color);
     text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+.rc-btn-group .rc-btn-outline-secondary:hover::after {
+    color: var(--text-dark-color);
 }
 .rc-btn-group .dropdown-toggle::after {
     color: var(--theme-color);
+}
+.rc-btn-group .dropdown-menu {
+    right: 0;
+    left: auto;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 25px;
+}
+.dropdown-menu > li + li {
+    border-top: 1px solid var(--theme-color);
+}
+.dropdown-menu > li > a {
+    border: 0;
+    margin: 0;
+    text-align: center;
+    padding: 11.5px 34px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: url(https://img.icons8.com/cotton/64/000000/calendar.png) no-repeat;
+  background-size: 21px 21px;
 }
 
 .hero-section {
