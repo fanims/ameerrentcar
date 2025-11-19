@@ -1730,6 +1730,11 @@ input[type="checkbox"] {
     padding: 0;
     margin-top: 10px;
 }
+.custom-card-body-header {
+    gap: 10px;
+    display: flex;
+    align-items: center;
+}
 .item-manufacturer {
     font-size: 20px;
     font-weight: 600;
@@ -1738,10 +1743,19 @@ input[type="checkbox"] {
 .rc-detail {
     cursor: pointer;
     font-size: 18px;
-    margin-left: 6px;
     font-weight: 500;
     color: var(--theme-color);
     text-decoration: underline;
+}
+.custom-card-body-header-social-icons {
+    gap: 6px;
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+}
+.custom-card-body-header-social-icons a {
+    font-size: 18px;
+    color: var(--text-color);
 }
 .item-model {
     font-size: 14px;

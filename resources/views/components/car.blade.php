@@ -20,15 +20,21 @@
     </div>
 
     <div class="card-body custom-card-body">
-        <!-- Category -->
-        <span class="item-manufacturer">
-            {{ $car->category->name[App::getLocale()] ?? $car->category->name['en'] ?? '' }}
-        </span>
-    
-        <!-- Details Button -->
-        <a href="{{ route('checkout', $car->slug) }}" class="rc-detail">
-            {{ __('home.details') }}
-        </a>
+        <div class="custom-card-body-header">
+            <!-- Category -->
+            <span class="item-manufacturer">
+                {{ $car->category->name[App::getLocale()] ?? $car->category->name['en'] ?? '' }}
+            </span>
+            <!-- Details Button -->
+            <a href="{{ route('checkout', $car->slug) }}" class="rc-detail">
+                {{ __('home.details') }}
+            </a>
+            <!-- Social Icons -->
+             <div class="custom-card-body-header-social-icons">
+                <a href="https://wa.me/{{ $setting->phone }}" target="_blank"><i class="bi bi-whatsapp"></i></a>
+                <a href="tel:{{ $setting->phone }}"><i class="bi bi-telephone"></i></a>
+             </div>
+        </div>
 
         <!-- Title -->
         <h5 class="item-model">
