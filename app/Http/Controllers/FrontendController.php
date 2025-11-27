@@ -235,6 +235,12 @@ class FrontendController extends Controller
     public function checkoutForm($id)
     {
         $car = Car::with('images')->find($id);
+        
+        // If AJAX request, return only the modal content
+        if (request()->ajax()) {
+            return view('frontend.pages.checkoutform-modal', compact('car'));
+        }
+        
         return view('frontend.pages.checkoutform', compact('car'));
     }
 

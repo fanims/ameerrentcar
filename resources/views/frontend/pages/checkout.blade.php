@@ -5,6 +5,9 @@ Ameer RAC | Checkout
 @endsection
 
 @section('style')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <style>
   :root {
     --phantom-beige: #8e7e6a;
@@ -17,6 +20,39 @@ Ameer RAC | Checkout
     --phantom-gray: #888888;
     --phantom-dark-text: #888888;
     --phantom-discount: #cd7f32;
+  }
+  
+  /* Modal Styles */
+  #checkoutModal {
+    z-index: 1050;
+  }
+  
+  #checkoutModal .modal-backdrop {
+    z-index: 1040;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  #checkoutModal .modal-content {
+    background-color: #000002;
+    border: 1px solid #ce933c;
+    border-radius: 10px;
+    color: #fff;
+  }
+  
+  #checkoutModal .modal-header {
+    border-bottom: 1px solid #ce933c;
+    padding: 20px;
+    background-color: #000002;
+  }
+  
+  #checkoutModal .modal-body {
+    padding: 40px;
+    background-color: #000002;
+  }
+  
+  body.modal-open {
+    overflow: hidden;
+    padding-right: 0 !important;
   }
 
   body {
@@ -585,8 +621,7 @@ Ameer RAC | Checkout
           </div>
         </div>
         <div class="book-now-button">
-          <button class="rc-btn-theme"
-            onclick="window.location.href='{{ route('checkout-form', $car->id) }}'">
+          <button class="rc-btn-theme" id="bookNowBtn" data-car-id="{{ $car->id }}">
             <i class="fa fa-calendar-check"></i>{{ __('home.book_now')}}
           </button>
         </div>
@@ -596,9 +631,25 @@ Ameer RAC | Checkout
 
 </section>
 
+<!-- Checkout Form Modal (Hidden by default) -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="checkoutModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document" style="max-width: 1300px;">
+    <div class="modal-content" id="checkoutModalContent">
+      <!-- Content will be loaded via AJAX -->
+      <div style="padding: 50px; text-align: center;">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <p style="margin-top: 20px;">Loading checkout form...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @push('script')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
   function changeMainImage(thumbnail) {
     const mainImage = document.getElementById('mainCarImage');
@@ -613,6 +664,104 @@ Ameer RAC | Checkout
       mainImage.removeEventListener('transitionend', handler);
     });
   }
+</script>
+
+<script>
+  // Wait for both jQuery and DOM to be ready
+  (function() {
+    function initCheckoutModal() {
+      if (typeof jQuery === 'undefined') {
+        console.error('jQuery is not loaded. Retrying in 100ms...');
+        setTimeout(initCheckoutModal, 100);
+        return;
+      }
+      
+      var $ = jQuery;
+      
+      $(document).ready(function() {
+        console.log('Initializing checkout modal handler');
+        
+        // Handle Book Now button click
+        $(document).on('click', '#bookNowBtn', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          var carId = $(this).data('car-id');
+          var checkoutUrl = '/checkout-form/' + carId;
+          
+          console.log('Book Now clicked. Car ID:', carId);
+          console.log('Checkout URL:', checkoutUrl);
+          
+          // Show modal with backdrop
+          $('#checkoutModal').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+          });
+          
+          // Ensure modal is visible
+          $('#checkoutModal').addClass('show').css({
+            'display': 'block',
+            'padding-right': '17px'
+          });
+          $('body').addClass('modal-open');
+          
+          // Add backdrop if it doesn't exist
+          if ($('.modal-backdrop').length === 0) {
+            $('body').append('<div class="modal-backdrop fade show"></div>');
+          }
+          
+          // Load checkout form content via AJAX
+          $.ajax({
+            url: checkoutUrl,
+            method: 'GET',
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'Accept': 'text/html'
+            },
+            beforeSend: function() {
+              $('#checkoutModalContent').html('<div style="padding: 50px; text-align: center; color: #fff;"><div class="spinner-border" style="color: #ce933c;" role="status"><span class="sr-only">Loading...</span></div><p style="margin-top: 20px; color: #fff;">Loading checkout form...</p></div>');
+            },
+            success: function(response) {
+              console.log('Checkout form loaded successfully');
+              $('#checkoutModalContent').html(response);
+              
+              // Execute any scripts in the loaded content
+              $('#checkoutModalContent script').each(function() {
+                var scriptContent = $(this).html();
+                if (scriptContent) {
+                  try {
+                    eval(scriptContent);
+                  } catch(e) {
+                    console.error('Error executing script:', e);
+                  }
+                }
+              });
+            },
+            error: function(xhr, status, error) {
+              console.error('AJAX Error:', {
+                status: xhr.status,
+                statusText: xhr.statusText,
+                error: error,
+                response: xhr.responseText ? xhr.responseText.substring(0, 200) : 'No response'
+              });
+              $('#checkoutModalContent').html('<div style="padding: 50px; text-align: center; color: #fff;"><p style="color: #ff6b6b;">Error loading checkout form.</p><p>Status: ' + xhr.status + '</p><p><button onclick="location.reload()" class="btn" style="background: #ce933c; color: #000; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Refresh Page</button></p></div>');
+            }
+          });
+        });
+        
+        // Handle modal close
+        $('#checkoutModal').on('hidden.bs.modal', function() {
+          $('.modal-backdrop').remove();
+          $('body').removeClass('modal-open');
+          $('#checkoutModalContent').html('<div style="padding: 50px; text-align: center; color: #fff;"><div class="spinner-border" style="color: #ce933c;" role="status"><span class="sr-only">Loading...</span></div><p style="margin-top: 20px; color: #fff;">Loading checkout form...</p></div>');
+        });
+      });
+    }
+    
+    // Start initialization
+    initCheckoutModal();
+  })();
 </script>
 
 @endpush

@@ -9,26 +9,132 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   @include('frontend.includes.style')
+  <!-- <style>
+    body {
+      background-color: #000000 !important;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    
+    /* Ensure modal is visible */
+    .rc-checkout-form {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1050;
+      display: flex;
+      position: fixed;
+      align-items: center;
+      box-sizing: border-box;
+      justify-content: center;
+    }
+    
+    .rc-checkout-form .modal {
+      position: relative !important;
+      z-index: 1050;
+      display: block !important;
+    }
+    
+    .rc-checkout-form .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1040;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    body.modal-open {
+      overflow: hidden;
+      padding-right: 0 !important;
+    }
+    
+    .rc-checkout-form .modal-dialog {
+      margin: 0 auto;
+      z-index: 1051;
+      position: relative;
+      max-width: 1300px;
+      width: 100%;
+    }
+    
+    .rc-checkout-form .modal-content {
+      position: relative;
+      z-index: 1052;
+      background-color: #000002 !important;
+      color: #ffffff !important;
+      /* border: 1px solid #ce933c !important; */
+      border-radius: 10px;
+      display: block !important;
+    }
+    
+    .rc-checkout-form .modal-header {
+      background-color: #000002 !important;
+      color: #ffffff !important;
+      padding: 20px;
+    }
+    
+    .rc-checkout-form .modal-body {
+      background-color: #000002 !important;
+      color: #ffffff !important;
+      padding: 40px;
+    }
+    
+    .rc-checkout-form .car-checkout-details {
+      color: #ffffff;
+    }
+    
+    .rc-checkout-form .car-title {
+      color: #ffffff !important;
+    }
+    
+    .rc-checkout-form .pricing-item {
+      color: #ffffff;
+    }
+    
+    .rc-checkout-form .pricing-item span {
+      color: #ffffff;
+    }
+    
+    .rc-checkout-form label {
+      color: #ffffff !important;
+    }
+    
+    .rc-checkout-form .form-control {
+      color: #ffffff !important;
+      background-color: transparent !important;
+    }
+    
+    .rc-checkout-form .total {
+      color: #ffffff !important;
+    }
+  </style> -->
 </head>
 
-<body>
+<body style="background-color: #000000; margin: 0; padding: 0;">
+  <!-- Modal Backdrop -->
+  <div class="modal-backdrop fade show" id="modalBackdrop"></div>
+  
   <section class="rc-checkout-form">
-    <div class="container-fluid modal fade" id="checkoutModal" tabindex="-1" role="dialog"
-      aria-labelledby="checkoutModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal fade show" id="checkoutModal" tabindex="-1" role="dialog"
+      aria-labelledby="checkoutModalLabel" aria-hidden="false">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-          <div class="rc-section-title">
+            <div class="rc-section-title">
               <div class="rc-section-title-content">
                 <span>{{ __('checkout.checkout_tagline') }}</span>
                 <h2 class="modal-title" id="checkoutModalLabel">{{ __('checkout.checkout') }}</h2>
               </div>
             </div>
-            <button type="button" class="rc-btn-theme btn-back" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="rc-btn-theme btn-back" onclick="window.location.href='{{ isset($car) && $car ? route('checkout', $car->slug) : '/' }}'" aria-label="Close">
               <i class="fa fa-arrow-left icon-left"></i>
-              <span aria-hidden="true" onclick="window.location.href='{{ route('checkout', $car->slug) }}'">Back</span>
+              <span aria-hidden="true">Back</span>
             </button>
           </div>
+          @if(isset($car) && $car)
           <form class="modal-body" method="POST" action="{{ route('store.checkout', $car->id) }}"
             data-hour-price="{{ $car->current_price_per_hour }}" data-day-price="{{ $car->current_price_per_day }}"
             data-week-price="{{ $car->current_price_per_week }}" data-month-price="{{ $car->current_price_per_month }}">
@@ -53,7 +159,7 @@
 
                 @foreach ($extras as $extra)
                 <div class="pricing-item">
-                  <span>{{ $extra['label'] }} - {{ $extra['price'] }} AED</span>
+                  <span >{{ $extra['label'] }} - {{ $extra['price'] }} AED</span>
                   <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input extra-charge" id="{{ $extra['id'] }}" name="extras[]"
                       value="{{ $extra['id'] }}" data-price="{{ $extra['price'] }}" {{ $extra['id'] === 'deposit_fee' ? 'checked' : '' }}>
@@ -64,8 +170,8 @@
                 @endforeach
 
                 <div class="pricing-item">
-                  <span>Tax:</span>
-                  <span class="price">{{ $generalPrices->tax }} %</span>
+                  <span >Tax:</span>
+                  <span class="price" >{{ $generalPrices->tax }} %</span>
                 </div>
 
                 <input type="hidden" name="grand_total" id="grandTotalInput" value="">
@@ -73,20 +179,20 @@
                 <input type="hidden" name="subtotal" id="subtotalInput" value="">
                 <input type="hidden" name="tax" id="taxInput" value="{{ $generalPrices->tax }}">
                 <div class="pricing-item">
-                  <span>Subtotal:</span>
-                  <span class="price" id="calculatedSubtotal">— AED</span>
+                  <span >Subtotal:</span>
+                  <span class="price" id="calculatedSubtotal" >— AED</span>
                 </div>
                 <div class="pricing-item">
-                    <span>*Extra charges will be charged if you don't select Self Pickup*</span>
+                    <span >*Extra charges will be charged if you don't select Self Pickup*</span>
                 </div>
-                <div class="total">
-                  <span>{{ __('checkout.total') }}</span>
-                  <span class="price" id="calculatedTotal">— AED</span>
+                <div class="total" >
+                  <span >{{ __('checkout.total') }}</span>
+                  <span class="price" id="calculatedTotal" >— AED</span>
                 </div>
               </div>
               <div class="car-checkout-details-form">
                 <div class="form-group">
-                  <label>{{ __('checkout.pickup_date_and_time') }}</label>
+                  <label >{{ __('checkout.pickup_date_and_time') }}</label>
                   <div class="date-time-row">
                     <div class="form-group">
                       <input type="date" class="form-control" id="pickupDate" name="pickup_date" />
@@ -103,7 +209,7 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label>{{ __('checkout.dropoff_date_and_time') }}</label>
+                  <label >{{ __('checkout.dropoff_date_and_time') }}</label>
                   <div class="date-time-row">
                     <div class="form-group">
                       <input type="date" class="form-control" id="dropoffDate" name="dropoff_date" />
@@ -123,16 +229,16 @@
                   <div class="pricing-item custom-control custom-radio">
                     <input type="radio" class="custom-control-input" id="rentPerHourRadio" name="rental_type" value="hour"
                       checked>
-                    <label class="custom-control-label" for="rentPerHourRadio">
-                      <span>{{ __('checkout.rent_per_hr') }}</span>
-                      <span class="price" id="rentPerHour">{{ $car->current_price_per_hour }} AED</span>
+                    <label class="custom-control-label" for="rentPerHourRadio" >
+                      <span >{{ __('checkout.rent_per_hr') }}</span>
+                      <span class="price" id="rentPerHour" >{{ $car->current_price_per_hour }} AED</span>
                     </label>
                   </div>
                   <div class="pricing-item custom-control custom-radio">
                     <input type="radio" class="custom-control-input" id="rentPerDayRadio" name="rental_type" value="day">
-                    <label class="custom-control-label" for="rentPerDayRadio">
-                      <span>RENT PER DAY :</span>
-                      <span class="price">{{ $car->base_price_per_day }} AED</span>
+                    <label class="custom-control-label" for="rentPerDayRadio" >
+                      <span >RENT PER DAY :</span>
+                      <span class="price" >{{ $car->base_price_per_day }} AED</span>
                     </label>
                   </div>
                 </div>
@@ -150,23 +256,41 @@
               </button>
             </div>
           </form>
+          @else
+          <div class="modal-body" style="padding: 40px; text-align: center; color: #ffffff;">
+            <p style="color: #ff6b6b; font-size: 18px;">Error: Car information not found.</p>
+            <a href="/" class="rc-btn-theme" style="margin-top: 20px; display: inline-block;">Go to Home</a>
+          </div>
+          @endif
         </div>
       </div>
     </div>
   </section>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     $(document).ready(function () {
-      $("#checkoutModal").modal({
-        backdrop: 'static',
-        keyboard: false
-      }); 
-        var today = new Date().toISOString().split("T")[0];
-        $("#pickupDate").val(today);
-        $("#dropoffDate").val(today);
-      });
+      console.log('Checkout form page loaded');
+      
+      // Ensure modal is visible immediately
+      var $modal = $("#checkoutModal");
+      $modal.removeClass('fade').addClass('show');
+      
+      $('body').addClass('modal-open');
+      
+      // Ensure backdrop is visible
+      if ($('#modalBackdrop').length === 0) {
+        $('body').prepend('<div class="modal-backdrop fade show" id="modalBackdrop" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 1040;"></div>');
+      }
+      
+      // Set today's date as default
+      var today = new Date().toISOString().split("T")[0];
+      $("#pickupDate").val(today);
+      $("#dropoffDate").val(today);
+      
+      console.log('Modal should be visible now');
+    });
   </script>
 <script>
   function togglePickerSize(pickerId) {
