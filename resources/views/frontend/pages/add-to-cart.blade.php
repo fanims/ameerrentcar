@@ -83,7 +83,11 @@
                                 </li>
                             </ul>
                         </div>
-                        <button class="rc-btn-theme" id="checkoutBtn" onclick="window.location.href='{{ route('add-payment') }}'">Checkout</button>
+                        <!-- <button class="rc-btn-theme" id="checkoutBtn" onclick="window.location.href='{{ route('add-payment') }}'">{{ __('checkout.checkout') }}</button> -->
+                         
+                        <button class="rc-btn-theme" type="submit" id="bookNowSubmitBtn">
+                          {{ __('checkout.book_now') }}
+                        </button>
                     </div>
                 </div>
             </div>

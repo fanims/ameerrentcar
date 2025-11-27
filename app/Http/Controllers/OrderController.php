@@ -95,7 +95,57 @@ class OrderController extends Controller
         // Store everything in session
         session()->put('booking_data', $data);
 
-        return redirect()->route('payment', $car->id)->with('success', 'Booking details saved.');
+        // Process payment directly based on selected method
+        // The booking-details page already has payment method selection (Tabby, COD, Online)
+        $orderData = session('order_data');
+        $carId = session('car_id');
+        $orderId = 'ORD-' . now()->format('Ymd') . '-' . rand(1000, 9999);
+        while (Order::where('order_id', $orderId)->exists()) {
+            $orderId = 'ORD-' . now()->format('Ymd') . '-' . rand(1000, 9999);
+        }
+
+        if (!$orderData || !$carId) {
+            return redirect()->route('home')->with('error', 'Session expired. Please start the booking again.');
+        }
+
+        $finalData = array_merge(
+            $orderData,
+            $data,
+            [
+                'car_id' => $carId,
+                'user_id' => auth()->id() ?? 'Guest-' . rand(1000, 9999),
+                'order_id' => $orderId,
+            ]
+        );
+
+        session()->put('full_order_data', $finalData);
+
+        // Handle based on payment method selected in booking-details page
+        if ($data['payment_method'] === 'cod') {
+            return $this->handleCodOrder($finalData);
+        } else if ($data['payment_method'] === 'tabby') {
+            $tabby = new TabbyService();
+            return $tabby->createCheckout($finalData); // Will redirect to Tabby payment page
+        } else if ($data['payment_method'] === 'online') {
+            // For online/Ziina payment, process directly
+            $ziina = new ZiinaService();
+            $paymentIntent = $ziina->createPaymentIntent([
+                'amount' => $orderData['grand_total'],
+                'name' => $data['full_name'],
+                'success_url' => route('payment.success', ['gateway' => 'ziina']),
+                'cancel_url' => route('payment.cancel', ['gateway' => 'ziina']),
+                'failure_url' => route('payment.failure', ['gateway' => 'ziina']),
+            ]);
+
+            if (isset($paymentIntent['redirect_url'])) {
+                return redirect($paymentIntent['redirect_url']);
+            }
+
+            return back()->with('error', 'Unable to initiate payment.');
+        }
+
+        // Fallback: should not reach here
+        return redirect()->route('home')->with('error', 'Invalid payment method selected.');
     }
 
 

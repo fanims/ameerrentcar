@@ -9,108 +9,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   @include('frontend.includes.style')
-  <!-- <style>
-    body {
-      background-color: #000000 !important;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-    }
-    
-    /* Ensure modal is visible */
-    .rc-checkout-form {
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1050;
-      display: flex;
-      position: fixed;
-      align-items: center;
-      box-sizing: border-box;
-      justify-content: center;
-    }
-    
-    .rc-checkout-form .modal {
-      position: relative !important;
-      z-index: 1050;
-      display: block !important;
-    }
-    
-    .rc-checkout-form .modal-backdrop {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1040;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-    
-    body.modal-open {
-      overflow: hidden;
-      padding-right: 0 !important;
-    }
-    
-    .rc-checkout-form .modal-dialog {
-      margin: 0 auto;
-      z-index: 1051;
-      position: relative;
-      max-width: 1300px;
-      width: 100%;
-    }
-    
-    .rc-checkout-form .modal-content {
-      position: relative;
-      z-index: 1052;
-      background-color: #000002 !important;
-      color: #ffffff !important;
-      /* border: 1px solid #ce933c !important; */
-      border-radius: 10px;
-      display: block !important;
-    }
-    
-    .rc-checkout-form .modal-header {
-      background-color: #000002 !important;
-      color: #ffffff !important;
-      padding: 20px;
-    }
-    
-    .rc-checkout-form .modal-body {
-      background-color: #000002 !important;
-      color: #ffffff !important;
-      padding: 40px;
-    }
-    
-    .rc-checkout-form .car-checkout-details {
-      color: #ffffff;
-    }
-    
-    .rc-checkout-form .car-title {
-      color: #ffffff !important;
-    }
-    
-    .rc-checkout-form .pricing-item {
-      color: #ffffff;
-    }
-    
-    .rc-checkout-form .pricing-item span {
-      color: #ffffff;
-    }
-    
-    .rc-checkout-form label {
-      color: #ffffff !important;
-    }
-    
-    .rc-checkout-form .form-control {
-      color: #ffffff !important;
-      background-color: transparent !important;
-    }
-    
-    .rc-checkout-form .total {
-      color: #ffffff !important;
-    }
-  </style> -->
 </head>
 
 <body style="background-color: #000000; margin: 0; padding: 0;">
@@ -251,11 +149,61 @@
               <a href="{{ route('add-to-cart', $car->id) }}" class="rc-btn-theme">
                 {{ __('checkout.add_to_cart') }}
               </a>
-              <button class="rc-btn-theme" type="submit">
+              <button class="rc-btn-theme" type="submit" id="bookNowSubmitBtn">
                 {{ __('checkout.book_now') }}
               </button>
             </div>
           </form>
+          
+          <script>
+            // Ensure form validation and calculation before submission
+            document.addEventListener('DOMContentLoaded', function() {
+              const form = document.querySelector('form.modal-body');
+              if (!form) return;
+              
+              form.addEventListener('submit', function(e) {
+                const pickupDate = document.getElementById('pickupDate');
+                const pickupTime = document.getElementById('pickupTime');
+                const dropoffDate = document.getElementById('dropoffDate');
+                const dropoffTime = document.getElementById('dropoffTime');
+                const grandTotal = document.getElementById('grandTotalInput');
+                const subtotal = document.getElementById('subtotalInput');
+                
+                // Validate required fields
+                if (!pickupDate || !pickupDate.value || !pickupTime || !pickupTime.value || 
+                    !dropoffDate || !dropoffDate.value || !dropoffTime || !dropoffTime.value) {
+                  e.preventDefault();
+                  alert('Please fill in all date and time fields.');
+                  return false;
+                }
+                
+                // Trigger calculation manually if needed
+                if (grandTotal && (!grandTotal.value || grandTotal.value === '')) {
+                  // Find and trigger the calculateTotal function
+                  const calculateEvent = new Event('change', { bubbles: true });
+                  if (pickupDate.value && dropoffDate.value) {
+                    pickupDate.dispatchEvent(calculateEvent);
+                    dropoffDate.dispatchEvent(calculateEvent);
+                  }
+                  
+                  // Wait a moment for calculation
+                  setTimeout(function() {
+                    if (!grandTotal.value || grandTotal.value === '' || parseFloat(grandTotal.value) <= 0) {
+                      e.preventDefault();
+                      alert('Please ensure dates and times are filled correctly. The total will be calculated automatically.');
+                      return false;
+                    }
+                  }, 200);
+                } else if (grandTotal && (!grandTotal.value || parseFloat(grandTotal.value) <= 0)) {
+                  e.preventDefault();
+                  alert('Please ensure dates and times are filled correctly.');
+                  return false;
+                }
+                
+                // If validation passes, form will submit to store.checkout which redirects to booking-details
+              });
+            });
+          </script>
           @else
           <div class="modal-body" style="padding: 40px; text-align: center; color: #ffffff;">
             <p style="color: #ff6b6b; font-size: 18px;">Error: Car information not found.</p>

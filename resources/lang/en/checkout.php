@@ -8,6 +8,7 @@ return [
     'additional_driver' => 'ADDITIONAL DRIVER :',
     'total' => 'TOTAL :',
     'book_now' => 'Book Now',
+    'checkout' => 'Checkout',
     'add_to_cart' => 'Add to cart',
     'your_booking_details' => 'YOUR BOOKING DETAILS',
     'fillout_the_form' => 'FILL OUT THE FORM TO MAKE SURE THAT THE CAR WILL BE DELIVERED EXACTLY TO
