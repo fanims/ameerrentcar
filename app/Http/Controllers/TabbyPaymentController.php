@@ -224,12 +224,16 @@ class TabbyPaymentController extends Controller
                 ?? $request->header('X-Signature')
                 ?? $request->input('signature');
 
+            // Get raw request body for signature verification
+            // Tabby signs the raw JSON body, not the parsed array
+            $rawPayload = $request->getContent();
             $payload = $request->all();
 
-            // Verify webhook signature
-            if (!$this->tabbyService->verifyWebhookSignature($payload, $signature)) {
+            // Verify webhook signature using raw payload
+            if (!$this->tabbyService->verifyWebhookSignature($rawPayload, $signature)) {
                 Log::warning('Tabby Webhook: Invalid signature', [
-                    'payload' => $payload
+                    'headers' => $request->headers->all(),
+                    'payload_keys' => array_keys($payload)
                 ]);
                 return response()->json(['error' => 'Invalid signature'], 401);
             }

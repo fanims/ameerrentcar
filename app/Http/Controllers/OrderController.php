@@ -243,7 +243,7 @@ class OrderController extends Controller
                     $failedData['license_files'] = json_encode($failedData['license_files']);
                 }
 
-                $uniqueOrderId = $finalData['order_id'] ?? ('ORD-' . now()->format('Ymd') . '-' . rand(1000, 9999));
+                $uniqueOrderId = $failedData['order_id'] ?? ('ORD-' . now()->format('Ymd') . '-' . rand(1000, 9999));
 
 
                 Order::create(array_merge($failedData, [
@@ -276,7 +276,7 @@ class OrderController extends Controller
                     $failedData['license_files'] = json_encode($failedData['license_files']);
                 }
 
-                $uniqueOrderId = $finalData['order_id'] ?? ('ORD-' . now()->format('Ymd') . '-' . rand(1000, 9999));
+                $uniqueOrderId = $failedData['order_id'] ?? ('ORD-' . now()->format('Ymd') . '-' . rand(1000, 9999));
 
                 Order::create(array_merge($failedData, [
                     'payment_status' => 'failed',

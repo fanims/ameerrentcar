@@ -17,7 +17,20 @@ class TabbyService
     {
         $this->apiKey = config('services.tabby.secret_key');
         $this->merchantCode = config('services.tabby.merchant_code');
-        $this->isTestMode = config('services.tabby.test_mode', true);
+        
+        // Determine test mode: check TABBY_ENV first, then TABBY_TEST_MODE, default to true if no API key
+        $env = config('services.tabby.env', 'test');
+        $testModeConfig = config('services.tabby.test_mode');
+        
+        // If API key is missing or empty, force test mode
+        if (empty($this->apiKey)) {
+            $this->isTestMode = true;
+        } else {
+            // Use explicit test_mode config if set, otherwise use env
+            $this->isTestMode = $testModeConfig !== null 
+                ? (bool)$testModeConfig 
+                : ($env === 'test');
+        }
         
         // Use sandbox URL for testing, production URL when credentials are available
         $this->checkoutUrl = $this->isTestMode 
@@ -28,6 +41,26 @@ class TabbyService
         $this->baseUrl = $this->isTestMode
             ? config('services.tabby.sandbox_base_url', 'https://api.tabby.dev/api/v2')
             : config('services.tabby.production_base_url', 'https://api.tabby.ai/api/v2');
+    }
+    
+    /**
+     * Check if Tabby is properly configured with API keys
+     * 
+     * @return bool
+     */
+    public function isConfigured(): bool
+    {
+        return !empty($this->apiKey) && !empty($this->merchantCode);
+    }
+    
+    /**
+     * Get current mode (test or live)
+     * 
+     * @return string
+     */
+    public function getMode(): string
+    {
+        return $this->isTestMode ? 'test' : 'live';
     }
 
     // public function createCheckout(array $finalData)
@@ -138,9 +171,13 @@ class TabbyService
      */
     public function createCheckout(array $finalData)
     {
-        // Validate API key exists (even if placeholder)
-        if (empty($this->apiKey)) {
-            Log::warning('Tabby API key not configured');
+        // Validate API key exists
+        if (!$this->isConfigured()) {
+            Log::warning('Tabby API key not configured', [
+                'has_api_key' => !empty($this->apiKey),
+                'has_merchant_code' => !empty($this->merchantCode),
+                'test_mode' => $this->isTestMode
+            ]);
             return back()->with('error', 'Tabby payment gateway is not configured. Please contact support.');
         }
 
@@ -348,23 +385,33 @@ class TabbyService
     /**
      * Verify payment webhook signature using HMAC-SHA256
      * 
-     * @param array $payload
-     * @param string $signature
+     * Tabby sends webhook signatures in the X-Tabby-Signature header.
+     * The signature is computed as HMAC-SHA256 of the raw request body.
+     * 
+     * @param array|string $payload Raw request body or parsed array
+     * @param string $signature Signature from X-Tabby-Signature header
      * @return bool
      */
-    public function verifyWebhookSignature(array $payload, string $signature): bool
+    public function verifyWebhookSignature($payload, string $signature): bool
     {
         if (empty($signature) || empty($this->apiKey)) {
-            Log::warning('Tabby Webhook: Missing signature or API key');
+            Log::warning('Tabby Webhook: Missing signature or API key', [
+                'has_signature' => !empty($signature),
+                'has_api_key' => !empty($this->apiKey)
+            ]);
             return false;
         }
 
-        // Tabby typically sends signature in header, but check payload too
-        $payloadToSign = $payload;
-        unset($payloadToSign['signature']);
+        // If payload is already an array, convert to JSON string
+        // Tabby signs the raw JSON body, not the parsed array
+        if (is_array($payload)) {
+            $payloadString = json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        } else {
+            $payloadString = $payload;
+        }
 
         // Create expected signature using HMAC-SHA256
-        $payloadString = json_encode($payloadToSign, JSON_UNESCAPED_SLASHES);
+        // Tabby uses the secret key (not public key) for webhook verification
         $expectedSignature = hash_hmac('sha256', $payloadString, $this->apiKey);
 
         // Compare signatures (timing-safe comparison)
@@ -372,9 +419,12 @@ class TabbyService
 
         if (!$isValid) {
             Log::warning('Tabby Webhook: Invalid signature', [
-                'expected' => substr($expectedSignature, 0, 20) . '...',
-                'received' => substr($signature, 0, 20) . '...'
+                'expected_prefix' => substr($expectedSignature, 0, 20) . '...',
+                'received_prefix' => substr($signature, 0, 20) . '...',
+                'payload_length' => strlen($payloadString)
             ]);
+        } else {
+            Log::info('Tabby Webhook: Signature verified successfully');
         }
 
         return $isValid;
