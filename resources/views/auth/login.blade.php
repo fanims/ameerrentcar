@@ -46,13 +46,8 @@
                                 <span>or login with</span>
                             </div>
                             <div class="rc-footer-social-icons">
-                                @php
-                                    $socials = get_socials();
-                                @endphp
-                                @if (!empty($socials[0]['facebook']))
-                                    <a href="{{ $socials[0]['facebook'] }}" target="_blank"><i class="bi bi-facebook"></i></a>
-                                @endif
-                                <a href="#" target="_blank"><i class="bi bi-google"></i></a>
+                                <a href="{{ url('auth/facebook') }}"><i class="bi bi-facebook"></i></a>
+                                <a href="{{ url('auth/google') }}"><i class="bi bi-google"></i></a>
                             </div>
                             <div class="rc-signup-option">
                                 <p>{{ __('auth.dont_have_an_account') }}</p>
