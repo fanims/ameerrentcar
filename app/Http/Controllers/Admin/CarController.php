@@ -95,7 +95,7 @@ class CarController extends Controller
         }
 
         // Prepare car data
-        $car->fill([
+        $carData = [
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'short_description' => $request->input('short_description'),
@@ -131,8 +131,14 @@ class CarController extends Controller
             'engine' => $request->engine,
             'service_included' => $request->service_included,
             'doors' => $request->doors,
-        ]);
+        ];
 
+        // Include thumbnail_image if it was set
+        if (isset($car->thumbnail_image)) {
+            $carData['thumbnail_image'] = $car->thumbnail_image;
+        }
+
+        $car->fill($carData);
         $car->save();
 
         // Handle other images
@@ -242,7 +248,7 @@ class CarController extends Controller
         /** ------------------------------
          *  Update Car Data
          * ------------------------------ */
-        $car->update([
+        $updateData = [
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'short_description' => $request->input('short_description'),
@@ -277,7 +283,14 @@ class CarController extends Controller
             'engine' => $request->engine,
             'service_included' => $request->service_included,
             'doors' => $request->doors,
-        ]);
+        ];
+
+        // Include thumbnail_image if it was updated
+        if ($request->hasFile('thumbnail')) {
+            $updateData['thumbnail_image'] = $car->thumbnail_image;
+        }
+
+        $car->update($updateData);
 
         /** ------------------------------
          *  Handle Other Images Update
@@ -306,14 +319,14 @@ class CarController extends Controller
     public function destroy(Car $car)
     {
         foreach ($car->images as $image) {
-            if (Storage::exists($image->image_path)) {
-                Storage::delete($image->image_path);
+            if (Storage::disk('public')->exists($image->image_path)) {
+                Storage::disk('public')->delete($image->image_path);
             }
             $image->delete();
         }
 
-        if ($car->thumbnail && Storage::exists($car->thumbnail)) {
-            Storage::delete($car->thumbnail);
+        if ($car->thumbnail_image && Storage::disk('public')->exists($car->thumbnail_image)) {
+            Storage::disk('public')->delete($car->thumbnail_image);
         }
 
         $car->delete();
@@ -326,8 +339,8 @@ class CarController extends Controller
     {
         $image = CarImage::findOrFail($id);
 
-        if (Storage::exists($image->image_path)) {
-            Storage::delete($image->image_path);
+        if (Storage::disk('public')->exists($image->image_path)) {
+            Storage::disk('public')->delete($image->image_path);
         }
 
         $image->delete();
