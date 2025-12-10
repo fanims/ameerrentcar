@@ -95,13 +95,16 @@ class CarController extends Controller
         }
 
         // Prepare car data
+        // Set default car_type to 'New' for newly created cars if not provided
+        $carType = $request->car_type ?? 'New';
+        
         $carData = [
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'short_description' => $request->input('short_description'),
 
             'brand_id' => $request->brand_id,
-            'car_type' => $request->car_type,
+            'car_type' => $carType,
             'category_id' => $request->category_id,
             'model_year' => $request->model_year,
 

@@ -83,7 +83,7 @@ class FrontendController extends Controller
     {
 
       
-        $query = Car::query();
+        $query = Car::with(['category', 'images', 'brand']);
 
         // Filter by brand name
         $locale = app()->getLocale();
@@ -124,6 +124,9 @@ class FrontendController extends Controller
             } elseif ($request->range === 'HIGH') {
                 $query->orderBy('current_price_per_week', 'desc');
             }
+        } else {
+            // Default ordering
+            $query->latest();
         }
 
         // Fetch filtered cars
@@ -159,7 +162,7 @@ class FrontendController extends Controller
 
     public function vehicleByBrand($id, $name)
     {
-        $cars = Car::where('brand_id', $id)->get();
+        $cars = Car::with(['category', 'images', 'brand'])->where('brand_id', $id)->latest()->get();
         $brands = Brand::all();
         $car_types = CarType::latest()->get();
         $car_models = Car::select('model_year')->distinct()->get();
@@ -191,7 +194,7 @@ class FrontendController extends Controller
         })->pluck('car_id');
 
         // Get available cars not in unavailable list
-        $cars = Car::whereNotIn('id', $unavailableCarIds)->get();
+        $cars = Car::with(['category', 'images', 'brand'])->whereNotIn('id', $unavailableCarIds)->latest()->get();
 
         $brands = Brand::all();
         $car_types = Car::select('car_type')->distinct()->get();

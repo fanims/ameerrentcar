@@ -127,7 +127,7 @@
                                             <label>Car Type</label>
                                             <select class="form-control select2" name="car_type" style="width: 100%;">
                                                 @foreach ($types as $type)
-                                                <option value="{{ $type->name_en }}" {{ old('car_type')==$type->name_en
+                                                <option value="{{ $type->name_en }}" {{ (old('car_type')==$type->name_en || (!old('car_type') && $type->name_en == 'New'))
                                                     ? 'selected' : '' }}>{{ $type->name_en }}</option>
                                                 @endforeach
                                             </select>
