@@ -130,18 +130,11 @@ $sliders = \App\Models\Slider::where('status', 1)->get();
                     </div>
                     <div class="swiper bannerSlider">
                         <div class="swiper-wrapper">
+                            @foreach ($sliders as $slider)
                             <div class="swiper-slide">
-                                <img loading="lazy" src="{{ asset('storage/sliders/Uw4Ed2Pd3D0hMWxhhhVAJJFMinucLfVRXVYXKdIC.png') }}" class="rc-banner-image" alt="banner image">
+                                <img loading="lazy" src="{{ asset('storage/' . $slider->image) }}" class="rc-banner-image" alt="banner image">
                             </div>
-                            <div class="swiper-slide">
-                                <img loading="lazy" src="{{ asset('storage/sliders/banner-img-1.png') }}" class="rc-banner-image" alt="banner image">
-                            </div>
-                            <div class="swiper-slide">
-                                <img loading="lazy" src="{{ asset('storage/sliders/banner-img-2.png') }}" class="rc-banner-image" alt="banner image">
-                            </div>
-                            <div class="swiper-slide">
-                                <img loading="lazy" src="{{ asset('storage/sliders/banner-img-3.png') }}" class="rc-banner-image" alt="banner image">
-                            </div>
+                            @endforeach
                         </div>
                         <!-- Navigation buttons -->
                         <div class="swiper-button-next"></div>
