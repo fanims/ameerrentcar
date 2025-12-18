@@ -597,7 +597,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider1x1 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider1x1[0].images[index] ||
+                    const image = 'storage/' + swiperSlider1x1[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -627,7 +627,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider1x2 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider1x2[0].images[index] ||
+                    const image = 'storage/' + swiperSlider1x2[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -656,7 +656,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider1x3 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider1x3[0].images[index] ||
+                    const image = 'storage/' + swiperSlider1x3[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -686,7 +686,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider1x4 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider1x4[0].images[index] ||
+                    const image = 'storage/' + swiperSlider1x4[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -716,7 +716,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider1x5 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider1x5[0].images[index] ||
+                    const image = 'storage/' + swiperSlider1x5[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -745,7 +745,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider2x1 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider2x1[0].images[index] ||
+                    const image = 'storage/' + swiperSlider2x1[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -775,7 +775,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider2x2 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider2x2[0].images[index] ||
+                    const image = 'storage/' + swiperSlider2x2[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -804,7 +804,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider2x3 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider2x3[0].images[index] ||
+                    const image = 'storage/' + swiperSlider2x3[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -833,7 +833,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider2x4 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider2x4[0].images[index] ||
+                    const image = 'storage/' + swiperSlider2x4[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -862,7 +862,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider2x5 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider2x5[0].images[index] ||
+                    const image = 'storage/' + swiperSlider2x5[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -891,7 +891,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider3x1 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider3x1[0].images[index] ||
+                    const image = 'storage/' + swiperSlider3x1[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -921,7 +921,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider3x2 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider3x2[0].images[index] ||
+                    const image = 'storage/' + swiperSlider3x2[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -951,7 +951,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider3x3 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider3x3[0].images[index] ||
+                    const image = 'storage/' + swiperSlider3x3[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -980,7 +980,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider3x4 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider3x4[0].images[index] ||
+                    const image = 'storage/' + swiperSlider3x4[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -1009,7 +1009,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider3x5 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider3x5[0].images[index] ||
+                    const image = 'storage/' + swiperSlider3x5[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -1038,7 +1038,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider4x1 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider4x1[0].images[index] ||
+                    const image = 'storage/' + swiperSlider4x1[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -1068,7 +1068,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider4x2 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider4x2[0].images[index] ||
+                    const image = 'storage/' + swiperSlider4x2[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -1097,7 +1097,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider4x3 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider4x3[0].images[index] ||
+                    const image = 'storage/' + swiperSlider4x3[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -1126,7 +1126,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider4x4 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider4x4[0].images[index] ||
+                    const image = 'storage/' + swiperSlider4x4[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -1155,7 +1155,7 @@ jQuery(document).ready(function () {
                 pagination: "#swiperSlider4x5 .row.car-thumbnails",
                 paginationClickable: true,
                 paginationBulletRender: function (index, className) {
-                    const image = 'storage/'+ swiperSlider4x5[0].images[index] ||
+                    const image = 'storage/' + swiperSlider4x5[0].images[index] ||
                         "assets/img/placeholder.jpg";
                     return `
                         <div class="col-xs-2 col-sm-2 col-md-3 ${className}">
@@ -1640,9 +1640,9 @@ jQuery(document).ready(function () {
             });
             $("#amount").val(
                 "$" +
-                    $("#slider-range").slider("values", 0) +
-                    " - $" +
-                    $("#slider-range").slider("values", 1)
+                $("#slider-range").slider("values", 0) +
+                " - $" +
+                $("#slider-range").slider("values", 1)
             );
         }
     }
@@ -1848,7 +1848,7 @@ searchToggle.addEventListener("click", function (e) {
     if (window.innerWidth > 998) {
         // Shift menu items
         menuItems.forEach((item) => {
-            item.style.transform = "translateX(-200px)"; // Adjust this value as needed
+            item.style.transform = "translateX(0)"; // Adjust this value as needed
         });
     }
 });

@@ -62,3 +62,70 @@
         </div>
     </div>
 </header>
+
+<style>
+    /* Ensure the wrapper is relative so absolute positioning works within it */
+    .rc-search-wrapper {
+        position: relative;
+    }
+
+    /* Input field container styling */
+    #searchBar {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 100%; /* Position it directly below the button */
+        right: 0;
+        z-index: 1000;
+        border-radius: 4px;
+        min-width: 250px;
+        margin-top: 10px;
+    }
+
+    /* Show state class */
+    #searchBar.active {
+        display: block;
+    }
+
+    /* Style the input inside */
+    #searchBar input {
+        width: 100%;
+        outline: none;
+        min-height: 40px;
+        color: #ce933c;
+        padding: 8px 12px;
+        border-radius: 4px;
+        border: 1px solid #ce933c;
+    }
+    
+    /* Style search icon if inside */
+    #searchBar i {
+        display: none; /* Hide icon inside input container if desired, or style it */
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchToggle = document.getElementById('searchToggle');
+    const searchBar = document.getElementById('searchBar');
+
+    if (searchToggle && searchBar) {
+        searchToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation(); // Prevent event from bubbling
+            searchBar.classList.toggle('active');
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!searchToggle.contains(e.target) && !searchBar.contains(e.target)) {
+                searchBar.classList.remove('active');
+            }
+        });
+
+        // Prevent closing when clicking inside the search bar
+        searchBar.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+    }
+});
+</script>
