@@ -10,14 +10,14 @@
                         </div>
                         <!-- /Logo -->
                         <!-- Mobile menu toggle button -->
-                        <a href="#" class="menu-toggle btn ripple-effect btn-theme-transparent"><i class="fa fa-bars"></i></a>
+                        <a href="#" class="menu-toggle ripple-effect btn-theme-transparent"><i class="fa fa-bars"></i></a>
                         <!-- /Mobile menu toggle button -->
                         <!-- Navigation -->
                         <nav class="navigation closed clearfix">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
                                     <!-- navigation menu -->
-                                    <a href="#" class="menu-toggle-close btn"><i class="fa fa-times"></i></a>
+                                    <a href="#" class="menu-toggle-close"><i class="fa fa-times"></i></a>
                                     <ul class="nav sf-menu">
                                         <li class="{{ request()->routeIs('home') ? 'active' : '' }}"><a href="{{ route('home') }}">{{ __('navigation.home') }}</a></li>
                                         <li class="{{ request()->routeIs('vahicles') || request()->routeIs('vehicle') || request()->routeIs('search') || request()->routeIs('car.search') ? 'active' : '' }}"><a href="{{ route('vahicles') }}">{{ __('navigation.vehicles') }}</a></li>
