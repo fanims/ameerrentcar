@@ -2757,6 +2757,7 @@ a.rc-btn-theme:hover {
 
 .form-group label {
     font-size: 18px;
+    color: #ffffff;
     margin-bottom: 10px;
     text-transform: capitalize;
 }
@@ -2783,7 +2784,13 @@ a.rc-btn-theme:hover {
 
 .date-time-row .form-group .form-control {
     border: none;
+    color: rgba(211, 211, 211, 0.6);
     border-bottom: 1px solid rgba(101, 99, 99, 1);
+}
+
+.date-time-row .form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(1) brightness(0.5);
 }
 
 .date-time-row .form-group .form-control[min="2025-11-28"] {
