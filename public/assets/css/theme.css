@@ -12534,6 +12534,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .rc-profile-section {
     padding: 50px 0;
+    min-height: 100vh;
     background: rgba(0, 0, 0, 1);
 }
 
